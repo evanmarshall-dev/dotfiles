@@ -1,0 +1,9 @@
+# .gitconfig
+
+[user]
+	name = evanmarshall-dev
+	email = me@evanmarshall.dev
+[init]
+	defaultBranch = main
+[core]
+	excludesfile = /home/gingaranga/.gitignore_global
