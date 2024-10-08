@@ -1,0 +1,111 @@
+{
+  // Prettier & ESLint Settings
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.format": true
+  },
+  // Workbench Settings
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.productIconTheme": "material-product-icons",
+  "workbench.colorTheme": "Night Owl",
+  "workbench.startupEditor": "none",
+  "workbench.editor.highlightModifiedTabs": true,
+  // Keybinding for sidebar/activitybar toggle
+  "multiCommand.commands": [
+    {
+      "command": "multiCommand.makeRoom",
+      "sequence": [
+        "workbench.action.toggleSidebarVisibility",
+        "workbench.action.toggleActivityBarVisibility"
+      ]
+    }
+  ],
+  // Editor Settings
+  "editor.minimap.enabled": false,
+  "editor.fontSize": 18,
+  "editor.renderWhitespace": "all",
+  "editor.tabSize": 2,
+  "editor.fontFamily": "Fira Code",
+  "editor.fontLigatures": true,
+  "editor.wordWrap": "on",
+  "editor.scrollBeyondLastLine": false,
+  "editor.linkedEditing": true,
+  "editor.scrollBeyondLastColumn": 2,
+  "editor.accessibilitySupport": "off",
+  "editor.suggestSelection": "first",
+  "editor.inlineSuggest.enabled": true,
+  // Terminal Settings
+  "terminal.integrated.fontSize": 18,
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  },
+  // Emmet Settings
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  // Excluded Files Settings
+  "files.exclude": {
+    "**/.git": false,
+    "**/.next": false,
+    "**/dist": false
+  },
+  // VSIntellicode Settings
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  // Settings to use local and/or global gitignore
+  "search.useIgnoreFiles": true,
+  "search.useGlobalIgnoreFiles": true,
+  // Saved Words in User Directory
+  "cSpell.userWords": [
+    "ACTIVEWEAR",
+    "Bitstream",
+    "buildfr",
+    "colour",
+    "crossorigin",
+    "deferreds",
+    "Dotfiles",
+    "downloadjs",
+    "elysianwebdesign",
+    "esbenp",
+    "evanmarshall",
+    "evanmarshallwebdeveloper",
+    "Fabricare",
+    "Falsey",
+    "Fira",
+    "gsap",
+    "IFHM",
+    "Intellicode",
+    "jewellery",
+    "keychain",
+    "Lato",
+    "mkdir",
+    "monospace",
+    "nextjs",
+    "noopener",
+    "noreferrer",
+    "Ooops",
+    "pbcopy",
+    "pubdate",
+    "Raleway",
+    "rando",
+    "roboto",
+    "SMACSS",
+    "tailwindcss",
+    "thebay",
+    "typekit",
+    "vsintellicode",
+    "watchfr",
+    "wcsstore",
+    "Zellers"
+  ],
+  // Explorer Settings
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  // Lint Settings
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "cSpell.language": "en,fr",
+  "liveServer.settings.donotShowInfoMsg": true
+}
