@@ -48,7 +48,7 @@ hiddenOff() {
 
 # VSCODE & CLI ALIASES
 # ----------------------------------------------
-alias c="echo -e 'Open up vscode in current working directory!! 👐\n\n' && code ." # Opens up vscode in current working directory.
+alias co="echo -e 'Open up vscode in current working directory!! 👐\n\n' && code ." # Opens up vscode in current working directory.
 alias cc="echo -e 'Open up vscode in specific directory!! 👐\n\n' && code $1" # Append directory or path to open up vscode in said directory.
 alias codedir="code ${HOME}/Library/'Application Support'/Code/User" # Opens up vscode directory containing settings.json, keybindings and snippets.
 alias up="echo -e 'Going up a directory, boiiii! 🛸\n\n' && cd .." # Up one directory.
@@ -105,6 +105,45 @@ brewUp() {
 # ----------------------------------------------
 alias -g uup="echo -e 'Your linux packages are looking a bit dated... 👴\n\n' && sudo apt-get update && sudo apt-get upgrade -y" # Updates/upgrade linux packages and prompt "yes" anytime command asks for it.
 
+# LINUX ALIASES
+# ----------------------------------------------
+alias lups="sudo yay -Syu" # Update system.
+alias lup="sudo yay -Sy" # Update packages.
+alias lin="sudo yay -S $1" # Install package. Append with package name.
+alias lroot="sudo chown root: $1" # Give root ownership to file or folder. Append name of file or folder.
+alias l600="sudo chmod 600 $1" # Give 600 permissions (read/write) to file or folder. Append name of file or folder.
+alias l775="sudo chmod 775 $1" # Give 775 (all: read/write/execute) permissions to file or folder. Append name of file or folder.
+alias lid="id $1" # Get UID and PID for user. Append with username.
+alias lg=" | grep $1" # See if this works. Basically I want to filter out results based on keyword ($1). This should be added to end of command.
+alias ls="yay -Ss $1" # Search package by name. Append with package name.
+alias lsdrive="sudo blkid" # List storage devices with ID.
+
+# FACL ALIASES
+# ----------------------------------------------
+alias f775="sudo setfacl -Rdm u:$1:rwx $2" # Give user ($1) all permissions to file or folder using ACL package. Append name of file or folder.
+alias f775e="sudo setfacl -Rm u:$1:rwx $2" # Give user ($1) all permissions to file or folder using ACL package for all existing. Append name of file or folder.
+alias f775g="sudo setfacl -Rdm g:docker:rwx /home/gingaranga/docker" # Same as above except for docker global.
+alias f775ge="sudo setfacl -Rm g:docker:rwx /home/gingaranga/docker" # Same as above except for docker global for existing.
+alias flist="getfacl $1" # Get ownership/permission for file or folder. Append with name of file or folder.
+
+# DOCKER/PORTAINER/DOCKER-COMPOSE ALIASES
+# ----------------------------------------------
+alias dci="yay -S docker docker-compose" # install docker and docker compose.
+alias dst="sudo systemctl start docker.service" # Start docker service.
+alias den="sudo systemctl enable docker.service" # Enable docker service.
+alias dstp="sudo systemctl stop docker.service" # Stop docker service.
+alias duser='sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker' # Add current user to docker so you do not need to be super user.
+alias dusera="ps aux | grep docker" # Check user access to docker.
+alias dstat="systemctl status docker" # Check status of docker.
+alias pmkdir="sudo docker volume create portainer_data" # Create volume for docker inside docker.
+alias prun="sudo docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart-always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest" # Install portainer image, set to port 9443, name portainer, and run latest instance or portainer community edition.
+alias dcon="sudo docker ps -a" # Check currently running docker containers.
+alias drst="sudo docker restart $1" # Restart docker container. Append with container name.
+alias dstco="sudo docker compose -f /home/gingaranga/docker/docker-compose-$1.yml up -d" # Run docker using docker-compose. Append with name of host.
+alias dendco="sudo docker compose -f /home/gingaranga/docker/docker-compose-$1.yml down" # End docker using docker-compose. Append with name of host.
+alias dlog="sudo docker compose -f /home/gingaranga/docker/docker-compose-$1.yml logs -tf --tail='50' $2" # Show currently running logs for docker container. Append with host name ($1) and container name ($2).
+alias dclean="sudo docker system prune && sudo docker image prune && sudo docker volume prune" # Clean up unused system files, images and volumes.
+
 # ZSH/OH-MY-ZSH ALIASES
 # ----------------------------------------------
 alias zed="echo -e 'Editing your ZSH config, eh? 👨‍🔬\n\n' && code ${HOME}/.zshrc" # Edit global ZSH config.
@@ -135,7 +174,6 @@ alias shagent="echo -e 'I do not know what this is, but we gotta do it or else t
 alias shakey="echo -e 'The name is Bond, James Bond... and I need that key! 🔑\n\n' && ssh-add --apple-use-keychain ${HOME}/.ssh" # TODO: Figure out how to add this alias with variable because the forward slash throws it off.
 # Adds SSH key to agent. Make sure you add filename created with skgen alias to the end of this alias. ** For Windows/WSL you need to remove "UseKeychain from SSH config and -K/--apple-use-keychain from this code."
 alias shatest="echo -e 'Did it work?? ✋\n\n' && ssh -T git@$1" # Test your connection. Make sure you add your Host name created during the config file setup, to the end of this alias.
-## All info for ssh setup can be found at: https://www.darraghoriordan.com/2021/05/04/configure-multiple-github-accounts-one-computer/
 
 # GULP ALIASES
 # ----------------------------------------------
@@ -323,6 +361,14 @@ huskySet() {
 alias ffc="ffmpeg -i $1 $2" # Replace $1 and $2 with input file and output file, respectively to convert $1 into $2.
 alias ffs="ffmpeg -i $1.srt big.ass"
 alias ffsub="ffmpeg -i $1 -vf ass=big.ass $2" # Takes the above created ass file and adds it as a subtitle to video file $1. The output is the $2 argument.
+
+# NEEDED FOR NVM
+# ----------------------------------------------
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+source /opt/homebrew/opt/nvm/nvm.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
