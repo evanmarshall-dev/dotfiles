@@ -288,6 +288,11 @@ nxi() {
   npx create-next-app@$version --use-$package_manager
 } # Launch create next app dialog. Append arguments for package manager and next.js version (If no version provided then it defaults to latest).
 
+# SVELTE ALIASES
+# ----------------------------------------------
+alias svi="npx sv create $1" # Launch interactive sveltekit install. Append with the name of your app.
+alias svd="pnpm dev --open" # Launch dev server with local Sveltekit app.
+
 # PNPM ALIASES
 # ----------------------------------------------
 alias p="pnpm" # Alias for pnpm.
