@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/Users/evan.marshall/.zsh/completions:"* ]]; then export FPATH="/Users/evan.marshall/.zsh/completions:$FPATH"; fi
 # NEEDED FOR POWERLEVEL10K
 # ----------------------------------------------
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -115,7 +117,7 @@ alias l600="sudo chmod 600 $1" # Give 600 permissions (read/write) to file or fo
 alias l775="sudo chmod 775 $1" # Give 775 (all: read/write/execute) permissions to file or folder. Append name of file or folder.
 alias lid="id $1" # Get UID and PID for user. Append with username.
 alias lg=" | grep $1" # See if this works. Basically I want to filter out results based on keyword ($1). This should be added to end of command.
-alias ls="yay -Ss $1" # Search package by name. Append with package name.
+alias lss="yay -Ss $1" # Search package by name. Append with package name.
 alias lsdrive="sudo blkid" # List storage devices with ID.
 
 # FACL ALIASES
@@ -369,11 +371,11 @@ alias ffsub="ffmpeg -i $1 -vf ass=big.ass $2" # Takes the above created ass file
 
 # NEEDED FOR NVM on Mac.
 # ----------------------------------------------
-# export NVM_DIR="$HOME/.nvm"
-#   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-#   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-# source /opt/homebrew/opt/nvm/nvm.sh
+source /opt/homebrew/opt/nvm/nvm.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -384,4 +386,5 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
+# pnpm end[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+. "/Users/evan.marshall/.deno/env"
