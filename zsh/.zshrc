@@ -1,5 +1,22 @@
+# For homebrew install on WINDOWS WSL
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# Assign oh-my-posh as prompt.
+# For Mac
+# eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/my.toml)"
+# For Windows/WSL
+# If you want to use a theme installed with oh my posh in homebrew dir.
+# eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/atomic.omp.json)"
+# If you want to use a custom theme installed in dir of your choosing.
+eval "$(oh-my-posh init zsh --config ~/.config/posh/.custom-atomic.omp.toml)"
+
+# Fix for terminal displaying ANSI characters. For MAC.
+# if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
+#   eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/my.toml)"
+# fieval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 # Add deno completions to search path
-if [[ ":$FPATH:" != *":/Users/evan.marshall/.zsh/completions:"* ]]; then export FPATH="/Users/evan.marshall/.zsh/completions:$FPATH"; fi
+# if [[ ":$FPATH:" != *":/Users/evan.marshall/.zsh/completions:"* ]]; then export FPATH="/Users/evan.marshall/.zsh/completions:$FPATH"; fi
 
 # PATH TO OH MY ZSH INSTALLATION
 # ----------------------------------------------
@@ -335,6 +352,17 @@ alias nie="npm install --save-dev --save-exact $1" # Install an npm package as a
 alias nun="npm uninstall $1" # Uninstall npm packages. Append the package name to the end of the alias.
 alias ncc="npm cache clean" # Deletes all of the data in the cache folder.
 alias nconf="npm init @eslint/config" # Initializes eslint in the project and runs the setup/config process.
+alias nlg="npm ls -g" # Lists the global installed npm packages.
+
+# OH-MY-POSH ALIASES
+# ----------------------------------------------
+alias ompwin="curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.config/ohmyposh" # Install oh my posh on windows WSL and install to .config dir.
+alias ompf="oh-my-posh font install" # Starts the font install prompt. Select font to install.
+alias ompe="exec zsh" # Refreshes terminal after changes made to profile.
+alias ompu="oh-my-posh upgrade" # Upgrades oh my posh.
+ompt() {
+  oh-my-posh config export --output ~/.config/posh/.custom-$1.omp.toml
+} # Exports current theme to be customized. Append alias with custom theme export name. Follow up with updating the oh my posh eval at top of file.
 
 # HUSKY ALIASES
 # ----------------------------------------------
@@ -365,25 +393,22 @@ alias ffsub="ffmpeg -i $1 -vf ass=big.ass $2" # Takes the above created ass file
 
 # NEEDED FOR NVM on Mac.
 # ----------------------------------------------
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+#   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+#   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-source /opt/homebrew/opt/nvm/nvm.sh
+# NEEDED FOR NVM ON WINDOWS WSL.
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# source /opt/homebrew/opt/nvm/nvm.sh
 
 # pnpm
-export PNPM_HOME="/Users/evan.marshall/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+# export PNPM_HOME="/Users/evan.marshall/Library/pnpm"
+# case ":$PATH:" in
+#   *":$PNPM_HOME:"*) ;;
+#   *) export PATH="$PNPM_HOME:$PATH" ;;
+# esac
 # pnpm end[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-. "/Users/evan.marshall/.deno/env"
-
-# Assign oh-my-posh as prompt.
-# eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/my.toml)"
-
-# Fix for terminal displaying ANSI characters.
-if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-  eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/my.toml)"
-fi
+# . "/Users/evan.marshall/.deno/env"
