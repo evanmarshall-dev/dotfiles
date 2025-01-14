@@ -366,9 +366,25 @@ ompt() {
 
 # Ubuntu ALIASES
 # ----------------------------------------------
-usyml(){
-  ln -s /home/$1 /home/$2 # Create a symlink in WSL Ubuntu. First variable starts at the WSL username and ends at the repo file target. The second variable starts at the WSL username and ends at the root file (i.e. zshrc).
-}
+usl(){
+  ln -s /home/$1 /home/$2
+} # Create a symlink in WSL Ubuntu. First variable starts at the WSL username and ends at the repo file target. The second variable starts at the WSL username and ends at the root file (i.e. zshrc).
+
+uslo(){
+  ln -sf /home/$1 /home/$2
+} # Same as above, but it will overwrite the source (second argument) if the file already exists.
+
+uck(){
+  ls -l /home/$1
+} # Check if a file has an existing symlink. Make sure the variable starts at the username and ends at the file source (i.e. /home/gingaranga/.zshrc).
+
+urm(){
+  rm $1
+} # Removes a symlink. The variable needs to be replaced with the name of the symlink or the second argument when creating the symlink (i.e. .zshrc).
+
+uul(){
+  unlink $1
+} # Unlinks a symlink. The variable needs to be replaced with the name of the symlink or the second argument when creating the symlink (i.e. .zshrc). This leaves the file, but removes the symlink.
 
 # HUSKY ALIASES
 # ----------------------------------------------
