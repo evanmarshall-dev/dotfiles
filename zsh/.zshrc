@@ -364,6 +364,12 @@ ompt() {
   oh-my-posh config export --output ~/.config/posh/.custom-$1.omp.toml
 } # Exports current theme to be customized. Append alias with custom theme export name. Follow up with updating the oh my posh eval at top of file.
 
+# Ubuntu ALIASES
+# ----------------------------------------------
+usyml(){
+  ln -s /home/$1 /home/$2 # Create a symlink in WSL Ubuntu. First variable starts at the WSL username and ends at the repo file target. The second variable starts at the WSL username and ends at the root file (i.e. zshrc).
+}
+
 # HUSKY ALIASES
 # ----------------------------------------------
 huskySet() {
