@@ -1,10 +1,5 @@
 # Add deno completions to search path
 if [[ ":$FPATH:" != *":/Users/evan.marshall/.zsh/completions:"* ]]; then export FPATH="/Users/evan.marshall/.zsh/completions:$FPATH"; fi
-# NEEDED FOR POWERLEVEL10K
-# ----------------------------------------------
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 
 # PATH TO OH MY ZSH INSTALLATION
 # ----------------------------------------------
@@ -12,7 +7,6 @@ export ZSH="$HOME/.oh-my-zsh"
 
 # ZSH THEMES
 # ----------------------------------------------
-ZSH_THEME="powerlevel10k/powerlevel10k"
 # ZSH_THEME="random"
 
 # ZSH PLUGINS
@@ -377,9 +371,6 @@ export NVM_DIR="$HOME/.nvm"
 
 source /opt/homebrew/opt/nvm/nvm.sh
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 # pnpm
 export PNPM_HOME="/Users/evan.marshall/Library/pnpm"
 case ":$PATH:" in
@@ -388,3 +379,11 @@ case ":$PATH:" in
 esac
 # pnpm end[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 . "/Users/evan.marshall/.deno/env"
+
+# Assign oh-my-posh as prompt.
+# eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/my.toml)"
+
+# Fix for terminal displaying ANSI characters.
+if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
+  eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/my.toml)"
+fi
