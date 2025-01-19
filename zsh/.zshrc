@@ -2,23 +2,26 @@
 # ----------------------------------------------
 # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-# ADD OHMYPOSH AS PROMPT.
+# ADD OH-MY-POSH AS PROMPT.
 # ----------------------------------------------
-# FOR MAC.
-# eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/my.toml)"
+# DEFAULT.
+# eval "$(oh-my-posh init zsh)"
 
-# FOR WINDOWS/WSL.
 # TO USE A THEME IN HOMEBREW DIRECTORY.
 # eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/atomic.omp.json)"
-# TO USE CUSTOM THEME IN YOUR CUSTOM THEME DIRECTORY.
+
+# TO USE CUSTOM THEME IN YOUR CUSTOM THEME DIRECTORY. AFTER EXPORT (SEE BELOW ALIAS).
 # eval "$(oh-my-posh init zsh --config ~/.config/posh/.custom-atomic.omp.toml)"
 
-# FIX FOR TERMINAL DISPLAYING ANSI CHARACTERS. FOR MAC.
-if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-  eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/my.toml)"
-fi
+# TO USE A REMOTE THEME.
+eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/cloud-native-azure.omp.json')"
 
-# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# Faves = chips, cloud-native-azure, froczh, iterm2, jandedobbeleer, jblab_2021, kushal, mojada, montys, quick-term, sonicboom_light, wholespace
+
+# FIX FOR TERMINAL DISPLAYING ANSI CHARACTERS. FOR MAC.
+# if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
+#   eval "$(oh-my-posh init zsh)"
+# fi
 
 # PATH TO OH MY ZSH INSTALLATION.
 # ----------------------------------------------
