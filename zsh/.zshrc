@@ -16,10 +16,9 @@
 # FIX FOR TERMINAL DISPLAYING ANSI CHARACTERS. FOR MAC.
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/my.toml)"
-fieval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
-# ADD DENO COMPLETIONS TO SEARCH PATH.
-if [[ ":$FPATH:" != *":/Users/evan.marshall/.zsh/completions:"* ]]; then export FPATH="/Users/evan.marshall/.zsh/completions:$FPATH"; fi
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # PATH TO OH MY ZSH INSTALLATION.
 # ----------------------------------------------
@@ -431,14 +430,3 @@ export NVM_DIR="$HOME/.nvm"
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-source /opt/homebrew/opt/nvm/nvm.sh
-
-# PNPM
-export PNPM_HOME="/Users/evan.marshall/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-pnpm end[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-. "/Users/evan.marshall/.deno/env"
