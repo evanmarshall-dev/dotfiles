@@ -1,43 +1,46 @@
-# For homebrew install on WINDOWS WSL
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# INSTALL HOMEBREW ON WINDOWS/WSL.
+# ----------------------------------------------
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-# Assign oh-my-posh as prompt.
-# For Mac
+# ADD OHMYPOSH AS PROMPT.
+# ----------------------------------------------
+# FOR MAC.
 # eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/my.toml)"
-# For Windows/WSL
-# If you want to use a theme installed with oh my posh in homebrew dir.
+
+# FOR WINDOWS/WSL.
+# TO USE A THEME IN HOMEBREW DIRECTORY.
 # eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/atomic.omp.json)"
-# If you want to use a custom theme installed in dir of your choosing.
-eval "$(oh-my-posh init zsh --config ~/.config/posh/.custom-atomic.omp.toml)"
+# TO USE CUSTOM THEME IN YOUR CUSTOM THEME DIRECTORY.
+# eval "$(oh-my-posh init zsh --config ~/.config/posh/.custom-atomic.omp.toml)"
 
-# Fix for terminal displaying ANSI characters. For MAC.
-# if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-#   eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/my.toml)"
-# fieval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# FIX FOR TERMINAL DISPLAYING ANSI CHARACTERS. FOR MAC.
+if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
+  eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/my.toml)"
+fieval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-# Add deno completions to search path
-# if [[ ":$FPATH:" != *":/Users/evan.marshall/.zsh/completions:"* ]]; then export FPATH="/Users/evan.marshall/.zsh/completions:$FPATH"; fi
+# ADD DENO COMPLETIONS TO SEARCH PATH.
+if [[ ":$FPATH:" != *":/Users/evan.marshall/.zsh/completions:"* ]]; then export FPATH="/Users/evan.marshall/.zsh/completions:$FPATH"; fi
 
-# PATH TO OH MY ZSH INSTALLATION
+# PATH TO OH MY ZSH INSTALLATION.
 # ----------------------------------------------
 export ZSH="$HOME/.oh-my-zsh"
 
-# ZSH THEMES
+# ZSH THEMES.
 # ----------------------------------------------
 # ZSH_THEME="random"
 
-# ZSH PLUGINS
+# ZSH PLUGINS.
 # ----------------------------------------------
 plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
 
-# SOURCE
+# SOURCE.
 # ----------------------------------------------
 source $ZSH/oh-my-zsh.sh
 
-# MACOSX ALIASES
+# MACOSX ALIASES.
 # ----------------------------------------------
 hiddenOn() {
   echo "Show hidden folder on your Mac. 👓👓"
@@ -59,7 +62,7 @@ hiddenOff() {
   echo "DONE! 😃"
 } # Hide hidden folders in MacOSX.
 
-# VSCODE & CLI ALIASES
+# VSCODE & CLI ALIASES.
 # ----------------------------------------------
 alias co="echo -e 'Open up vscode in current working directory!! 👐\n\n' && code ." # Opens up vscode in current working directory.
 alias cc="echo -e 'Open up vscode in specific directory!! 👐\n\n' && code $1" # Append directory or path to open up vscode in said directory.
@@ -92,7 +95,7 @@ make() {
   fi
 } # Create a directory and cd into it.
 
-# HOMEBREW ALIASES
+# HOMEBREW ALIASES.
 # ----------------------------------------------
 alias bl="echo -e 'Let us see what brews you have in your collection. 📚\n\n' && brew list" # Lists all Homebrew packages.
 alias bi="echo -e 'Let us install a brew package. \n\n' && brew install $1" # Installs a Homebrew package. Just append the package name after the alias.
@@ -114,11 +117,11 @@ brewUp() {
   brew doctor
 } # Updates/upgrades Homebrew packages, removes outdated files, and check system for problems.
 
-# WSL/UBUNTU ALIASES
+# WSL/UBUNTU ALIASES.
 # ----------------------------------------------
 alias -g uup="echo -e 'Your linux packages are looking a bit dated... 👴\n\n' && sudo apt-get update && sudo apt-get upgrade -y" # Updates/upgrade linux packages and prompt "yes" anytime command asks for it.
 
-# LINUX ALIASES
+# LINUX ALIASES.
 # ----------------------------------------------
 alias lups="sudo yay -Syu" # Update system.
 alias lup="sudo yay -Sy" # Update packages.
@@ -131,7 +134,7 @@ alias lg=" | grep $1" # See if this works. Basically I want to filter out result
 alias lss="yay -Ss $1" # Search package by name. Append with package name.
 alias lsdrive="sudo blkid" # List storage devices with ID.
 
-# FACL ALIASES
+# FACL ALIASES.
 # ----------------------------------------------
 alias f775="sudo setfacl -Rdm u:$1:rwx $2" # Give user ($1) all permissions to file or folder using ACL package. Append name of file or folder.
 alias f775e="sudo setfacl -Rm u:$1:rwx $2" # Give user ($1) all permissions to file or folder using ACL package for all existing. Append name of file or folder.
@@ -139,7 +142,7 @@ alias f775g="sudo setfacl -Rdm g:docker:rwx /home/gingaranga/docker" # Same as a
 alias f775ge="sudo setfacl -Rm g:docker:rwx /home/gingaranga/docker" # Same as above except for docker global for existing.
 alias flist="getfacl $1" # Get ownership/permission for file or folder. Append with name of file or folder.
 
-# DOCKER/PORTAINER/DOCKER-COMPOSE ALIASES
+# DOCKER/PORTAINER/DOCKER-COMPOSE ALIASES.
 # ----------------------------------------------
 alias dci="yay -S docker docker-compose" # install docker and docker compose.
 alias dst="sudo systemctl start docker.service" # Start docker service.
@@ -157,7 +160,7 @@ alias dendco="sudo docker compose -f /home/gingaranga/docker/docker-compose-$1.y
 alias dlog="sudo docker compose -f /home/gingaranga/docker/docker-compose-$1.yml logs -tf --tail='50' $2" # Show currently running logs for docker container. Append with host name ($1) and container name ($2).
 alias dclean="sudo docker system prune && sudo docker image prune && sudo docker volume prune" # Clean up unused system files, images and volumes.
 
-# ZSH/OH-MY-ZSH ALIASES
+# ZSH/OH-MY-ZSH ALIASES.
 # ----------------------------------------------
 alias zed="echo -e 'Editing your ZSH config, eh? 👨‍🔬\n\n' && code ${HOME}/.zshrc" # Edit global ZSH config.
 alias zre="echo -e 'It is annoying, but we have to refresh the config EVERYTIME we make a change... 🙃\n\n' && source ${HOME}/.zshrc" # Reloads ZSH config after changes.
@@ -178,7 +181,7 @@ zshSet() {
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 } # Check if ZSH is installed, set ZSH as the default shell, and then install Oh My ZSH.
 
-# SSH ALIASES
+# SSH ALIASES.
 # ----------------------------------------------
 alias shao="echo -e 'Making sure you are in the correct directory before creating some SSH stuff! 🔍\n\n' && cd ${HOME}/.ssh" # Navigate to global ssh directory.
 alias shacon="echo -e 'Open that config... SHHHHH! 🤫\n\n' && code ${HOME}/.ssh/config" # Edit global ssh configuration using vscode.
@@ -188,7 +191,7 @@ alias shakey="echo -e 'The name is Bond, James Bond... and I need that key! 🔑
 # Adds SSH key to agent. Make sure you add filename created with skgen alias to the end of this alias. ** For Windows/WSL you need to remove "UseKeychain from SSH config and -K/--apple-use-keychain from this code."
 alias shatest="echo -e 'Did it work?? ✋\n\n' && ssh -T git@$1" # Test your connection. Make sure you add your Host name created during the config file setup, to the end of this alias.
 
-# GULP ALIASES
+# GULP ALIASES.
 # ----------------------------------------------
 alias gu="echo -e 'GULP! 😧\n\n' && gulp" # Runs gulp command.
 alias gufr="echo -e 'LES GULP!? 👨‍🎨\n\n' && gulp devFr" # Runs French gulp command.
@@ -198,7 +201,7 @@ alias gub="echo -e 'Well you are just a cute little Bob the builder! 👷‍♂�
 alias gubfr="echo -e 'Es que je puis aller aux toilettes! 👨‍🎨\n\n' && gulp buildFr" # Runs the French build tasks.
 alias gucl="echo -e 'Clean up, clean up, everybody clean up! 🎵\n\n' && gulp clean" # Runs the clean or delete task for dev and prod directories.
 
-# GIT ALIASES
+# GIT ALIASES.
 # ----------------------------------------------
 alias gcon="echo -e 'Opening your global Git Config file. 🎛️\n\n' && code ${HOME}/.gitconfig" # Opens global gitconfig file in vscode.
 alias gup="git config --global $1" # Update Git Config parameter.
@@ -285,7 +288,7 @@ gitNew() {
   fi
 } # Connect a local project to an empty remote git repo, add template README file, stage README, commit README, and then push README to the remote repo or origin.
 
-# GITHUB CLI ALIASES
+# GITHUB CLI ALIASES.
 # ----------------------------------------------
 alias ghlogin="gh auth login" # Login and authenticate your GitHub account locally.
 alias ghlist="gh extension list" # List all GitHub CLI extensions.
@@ -293,7 +296,7 @@ alias ghci="gh extension install github/gh-copilot" # Install GitHub CLI extensi
 alias ghcs="gh copilot suggest '$1'" # Suggests a command. Make sure you append what you want a suggestion for to this alias.
 alias ghce="gh copilot explain '$1'" # Explains a command. Make sure you append what you want an explanation for to this alias.
 
-# NEXTJS ALIASES
+# NEXTJS ALIASES.
 # ----------------------------------------------
 nxi() {
   local package_manager=$1
@@ -301,12 +304,12 @@ nxi() {
   npx create-next-app@$version --use-$package_manager
 } # Launch create next app dialog. Append arguments for package manager and next.js version (If no version provided then it defaults to latest).
 
-# SVELTE ALIASES
+# SVELTE ALIASES.
 # ----------------------------------------------
 alias svi="npx sv create $1" # Launch interactive sveltekit install. Append with the name of your app.
 alias svd="pnpm dev --open" # Launch dev server with local Sveltekit app.
 
-# PNPM ALIASES
+# PNPM ALIASES.
 # ----------------------------------------------
 alias p="pnpm" # Alias for pnpm.
 alias pi="pnpm install" # Installs all dependencies in the package.json.
@@ -322,7 +325,7 @@ alias pup="pnpm up" # To update packages to latest specified versions in package
 alias pulp="pnpm up --latest" # Same as above, but ignoring package.json.
 alias pd="pnpm dlx '$1'" # Append this command with the package you would like to install via binaries, alternative to npx.
 
-# YARN ALIASES
+# YARN ALIASES.
 # ----------------------------------------------
 alias y="yarn install" # Install yarn packages.
 alias yi="yarn init -y" # Initialize yarn with yarn.lock file in current project.
@@ -337,7 +340,7 @@ alias yl="yarn list --depth=0" # List local yarn packages.
 alias ygl="yarn global list --depth=0" # List global yarn packages.
 alias yo="yarn outdated" # List outdated yarn packages.
 
-# NPM ALIASES
+# NPM ALIASES.
 # ----------------------------------------------
 alias ni="npm init" # Initialize npm in current project with a package.lock file.
 alias nu="npm-check -u" # Update npm packages using interactive guide.
@@ -354,7 +357,7 @@ alias ncc="npm cache clean" # Deletes all of the data in the cache folder.
 alias nconf="npm init @eslint/config" # Initializes eslint in the project and runs the setup/config process.
 alias nlg="npm ls -g" # Lists the global installed npm packages.
 
-# OH-MY-POSH ALIASES
+# OH-MY-POSH ALIASES.
 # ----------------------------------------------
 alias ompwin="curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.config/ohmyposh" # Install oh my posh on windows WSL and install to .config dir.
 alias ompf="oh-my-posh font install" # Starts the font install prompt. Select font to install.
@@ -363,8 +366,13 @@ alias ompu="oh-my-posh upgrade" # Upgrades oh my posh.
 ompt() {
   oh-my-posh config export --output ~/.config/posh/.custom-$1.omp.toml
 } # Exports current theme to be customized. Append alias with custom theme export name. Follow up with updating the oh my posh eval at top of file.
+alias ompd="oh-my-posh debug"
 
-# Ubuntu ALIASES
+# RUN PERFECT DARK PORT.
+# ----------------------------------------------
+alias pd="cd ~/GAMING/PORTS/pd-arm64-osx && ./pd.arm64"
+
+# WSL/UBUNTU ALIASES.
 # ----------------------------------------------
 usl(){
   ln -s /home/$1 /home/$2
@@ -386,7 +394,7 @@ uul(){
   unlink $1
 } # Unlinks a symlink. The variable needs to be replaced with the name of the symlink or the second argument when creating the symlink (i.e. .zshrc). This leaves the file, but removes the symlink.
 
-# HUSKY ALIASES
+# HUSKY ALIASES.
 # ----------------------------------------------
 huskySet() {
   echo "Let us setup and configure Husky! 🐕🐕"
@@ -407,30 +415,30 @@ huskySet() {
 # TODO: Modify the following code to add lint-staged to the husky pre-commit. Then add to above alias function.
 ## echo "# New Repo" >> README.md
 
-# FFMPEG ALIASES
+# FFMPEG ALIASES.
 # ----------------------------------------------
 alias ffc="ffmpeg -i $1 $2" # Replace $1 and $2 with input file and output file, respectively to convert $1 into $2.
 alias ffs="ffmpeg -i $1.srt big.ass"
 alias ffsub="ffmpeg -i $1 -vf ass=big.ass $2" # Takes the above created ass file and adds it as a subtitle to video file $1. The output is the $2 argument.
 
-# NEEDED FOR NVM on Mac.
+# NEEDED FOR NVM ON MAC.
 # ----------------------------------------------
-# export NVM_DIR="$HOME/.nvm"
-#   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-#   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # NEEDED FOR NVM ON WINDOWS WSL.
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# source /opt/homebrew/opt/nvm/nvm.sh
+source /opt/homebrew/opt/nvm/nvm.sh
 
-# pnpm
-# export PNPM_HOME="/Users/evan.marshall/Library/pnpm"
-# case ":$PATH:" in
-#   *":$PNPM_HOME:"*) ;;
-#   *) export PATH="$PNPM_HOME:$PATH" ;;
-# esac
-# pnpm end[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-# . "/Users/evan.marshall/.deno/env"
+# PNPM
+export PNPM_HOME="/Users/evan.marshall/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+pnpm end[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+. "/Users/evan.marshall/.deno/env"
