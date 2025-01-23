@@ -1,6 +1,6 @@
 # INSTALL HOMEBREW ON WINDOWS/WSL.
 # ----------------------------------------------
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # ADD OH-MY-POSH AS PROMPT.
 # ----------------------------------------------
@@ -164,17 +164,46 @@ alias dclean="sudo docker system prune && sudo docker image prune && sudo docker
 
 # OLLAMA ALIASES.
 # ----------------------------------------------
-alias ov="ollama --version" # Check currently installed ollama version.
-alias ol="ollama list" # Check available and installed models.
+# When installing via homebrew it installs locally and runs at localhost:11434. Therefore it does not use API keys.
+alias obi="brew install ollama" # Install ollama via homebrew.
+alias obs="brew services start ollama" # Start ollama as a background process.
+alias obst="brew services stop ollama" # Stop ollama service when started via homebrew.
+alias osm="/opt/homebrew/opt/ollama/bin/ollama serve" # Start ollama on mac via homebrew and not run in background.
+alias osr="ollama serve" # General start to ollama.
+alias ocr="ollama create" # Create a model from a Modelfile.
+alias osh="ollama show" # Show info for a model.
+alias opu="ollama pull" # Pull a model from a registry.
+alias ops="ollama push" # Push a model to a registry.
+alias ocp="ollama cp" # Copy a model.
+alias orm="ollama rm" # Remove a model.
+alias ohp="ollama help" # Ollama help.
+alias ovr="ollama --version" # Check currently installed ollama version.
+alias oli="ollama list" # Check available and installed models.
+alias okm="~/.ollama/id_ed25519.pub" # Generate ollama key for Mac.
+alias okl="/usr/share/ollama/.ollama/id_ed25519.pub" # Generate ollama key for Linux.
+alias okw="C:\Users\<username>\.ollama\id_ed25519.pub" # Generate ollama key for Windows.
 
-ord() {
-  local version=${1}
-  if [ -z "$version" ]; then
-    ollama run deepseek-r1
-  else
-    ollama run deepseek-r1:$version
+orun() {
+  local model=${1}
+  local version=${2}
+  if [ -z "$model" ]; then
+    echo "Please provide a model name."
+    return 1
   fi
-} # Run the deepseek-r1 model. Append generation to the end (i.e. 7b or Qwen). Uses no version if none is provided. # Run the deepseek-r1 model. Append generation to the end (i.e. 7b or Qwen). If no version provided it defaults to blank. Reference: https://ollama.com/library/deepseek-r1:32b
+  if [ -z "$version" ]; then
+    ollama run $model
+  else
+    ollama run $model:$version
+  fi
+} # Run the an ollama model. Specify model and version. If no version provided it defaults to blank. Reference: https://ollama.com/library
+
+# VERCEL CLI ALIASES.
+# ----------------------------------------------
+# Check reference here: https://vercel.com/docs/cli
+alias vci="pnpm i -g vercel" # Install vercel cli globally using pnpm.
+alias vcu="pnpm i -g vercel@latest" # Update vercel cli.
+alias vcv="vercel --version" # Check vercel cli version.
+alias vcc="vercel project ls --update-required" # Check if any local vercel projects require updates.
 
 # ZSH/OH-MY-ZSH ALIASES.
 # ----------------------------------------------
@@ -439,11 +468,22 @@ alias ffsub="ffmpeg -i $1 -vf ass=big.ass $2" # Takes the above created ass file
 
 # NEEDED FOR NVM ON MAC.
 # ----------------------------------------------
-# export NVM_DIR="$HOME/.nvm"
-#   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-#   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-# NEEDED FOR NVM ON WINDOWS WSL.
 export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# NEEDED FOR NVM ON WSL.
+# ----------------------------------------------
+# export NVM_DIR="$HOME/.nvm"
+#   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# pnpm
+
+# NEEDED FOR PNPM GLOBAL ON MAC.
+# ----------------------------------------------
+export PNPM_HOME="/Users/evan.marshall/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
