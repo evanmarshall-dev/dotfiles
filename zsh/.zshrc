@@ -1,6 +1,6 @@
 # INSTALL HOMEBREW ON WINDOWS/WSL.
 # ----------------------------------------------
-# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # ADD OH-MY-POSH AS PROMPT.
 # ----------------------------------------------
@@ -161,6 +161,20 @@ alias dstco="sudo docker compose -f /home/gingaranga/docker/docker-compose-$1.ym
 alias dendco="sudo docker compose -f /home/gingaranga/docker/docker-compose-$1.yml down" # End docker using docker-compose. Append with name of host.
 alias dlog="sudo docker compose -f /home/gingaranga/docker/docker-compose-$1.yml logs -tf --tail='50' $2" # Show currently running logs for docker container. Append with host name ($1) and container name ($2).
 alias dclean="sudo docker system prune && sudo docker image prune && sudo docker volume prune" # Clean up unused system files, images and volumes.
+
+# OLLAMA ALIASES.
+# ----------------------------------------------
+alias ov="ollama --version" # Check currently installed ollama version.
+alias ol="ollama list" # Check available and installed models.
+
+ord() {
+  local version=${1}
+  if [ -z "$version" ]; then
+    ollama run deepseek-r1
+  else
+    ollama run deepseek-r1:$version
+  fi
+} # Run the deepseek-r1 model. Append generation to the end (i.e. 7b or Qwen). Uses no version if none is provided. # Run the deepseek-r1 model. Append generation to the end (i.e. 7b or Qwen). If no version provided it defaults to blank. Reference: https://ollama.com/library/deepseek-r1:32b
 
 # ZSH/OH-MY-ZSH ALIASES.
 # ----------------------------------------------
@@ -425,11 +439,11 @@ alias ffsub="ffmpeg -i $1 -vf ass=big.ass $2" # Takes the above created ass file
 
 # NEEDED FOR NVM ON MAC.
 # ----------------------------------------------
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+#   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+#   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # NEEDED FOR NVM ON WINDOWS WSL.
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
