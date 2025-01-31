@@ -165,10 +165,7 @@ alias dclean="sudo docker system prune && sudo docker image prune && sudo docker
 # OLLAMA ALIASES.
 # ----------------------------------------------
 # When installing via homebrew it installs locally and runs at localhost:11434. Therefore it does not use API keys.
-alias obi="brew install ollama" # Install ollama via homebrew.
-alias obs="brew services start ollama" # Start ollama as a background process.
-alias obst="brew services stop ollama" # Stop ollama service when started via homebrew.
-alias osm="/opt/homebrew/opt/ollama/bin/ollama serve" # Start ollama on mac via homebrew and not run in background.
+alias oni="pnpm install ollama" # Install ollama via pnpm.
 alias osr="ollama serve" # General start to ollama.
 alias ocr="ollama create" # Create a model from a Modelfile.
 alias osh="ollama show" # Show info for a model.
@@ -179,9 +176,6 @@ alias orm="ollama rm" # Remove a model.
 alias ohp="ollama help" # Ollama help.
 alias ovr="ollama --version" # Check currently installed ollama version.
 alias oli="ollama list" # Check available and installed models.
-alias okm="~/.ollama/id_ed25519.pub" # Generate ollama key for Mac.
-alias okl="/usr/share/ollama/.ollama/id_ed25519.pub" # Generate ollama key for Linux.
-alias okw="C:\Users\<username>\.ollama\id_ed25519.pub" # Generate ollama key for Windows.
 
 orun() {
   local model=${1}
@@ -341,6 +335,26 @@ alias ghci="gh extension install github/gh-copilot" # Install GitHub CLI extensi
 alias ghcs="gh copilot suggest '$1'" # Suggests a command. Make sure you append what you want a suggestion for to this alias.
 alias ghce="gh copilot explain '$1'" # Explains a command. Make sure you append what you want an explanation for to this alias.
 
+# REACT/VITE ALIASES.
+# ----------------------------------------------
+alias rca="npx create-react-app" # Creates React app using create-react-app tool.
+
+rcvc() {
+  if [ -z "$1" ]; then
+    echo "Please provide a name for your app."
+    return
+  fi
+
+  if [ -z "$2" ]; then
+    pnpm create vite $1
+  else
+    pnpm create vite $1 --template $2
+  fi
+} #Create React app using Vite and specifying app name and template used.
+
+alias rcv="pnpm create vite" # Creates React app using Vite tool.
+alias rrd="pnpm run dev" # Starts dev server to preview project.
+
 # NEXTJS ALIASES.
 # ----------------------------------------------
 nxi() {
@@ -356,9 +370,10 @@ alias svd="pnpm dev --open" # Launch dev server with local Sveltekit app.
 
 # PNPM ALIASES.
 # ----------------------------------------------
+alias pw="where pnpm" # Shows where pnpm is installed on your system. When doing a fresh install, remove all instances of it with rm -rf /path-to-install.
 alias p="pnpm" # Alias for pnpm.
 alias pi="pnpm install" # Installs all dependencies in the package.json.
-alias pig="npm install -g pnpm" # Installs pnpm package manager globally.
+alias pig="curl -fsSL https://get.pnpm.io/install.sh | sh -" # Installs pnpm package manager globally using curl.
 alias pa="pnpm add '$1'" # Append this command with the package name to install it.
 alias pad="pnpm add -D '$1'" # Append this command with the package name to install it as a dev dependancy.
 alias pr="pnpm rm '$1'" # Append this command with the package name you would like to remove.
@@ -408,9 +423,11 @@ alias ompwin="curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.config/
 alias ompf="oh-my-posh font install" # Starts the font install prompt. Select font to install.
 alias ompe="exec zsh" # Refreshes terminal after changes made to profile.
 alias ompu="oh-my-posh upgrade" # Upgrades oh my posh.
+
 ompt() {
   oh-my-posh config export --output ~/.config/posh/.custom-$1.omp.toml
 } # Exports current theme to be customized. Append alias with custom theme export name. Follow up with updating the oh my posh eval at top of file.
+
 alias ompd="oh-my-posh debug"
 
 # RUN PERFECT DARK PORT.
@@ -466,6 +483,10 @@ alias ffc="ffmpeg -i $1 $2" # Replace $1 and $2 with input file and output file,
 alias ffs="ffmpeg -i $1.srt big.ass"
 alias ffsub="ffmpeg -i $1 -vf ass=big.ass $2" # Takes the above created ass file and adds it as a subtitle to video file $1. The output is the $2 argument.
 
+# VSCODE EXTENSION CREATOR ALIASES.
+# ----------------------------------------------
+alias extc="npx --package yo --package generator-code -- yo code" # Create boilerplate for vscode extension. Recommended to use default options.
+
 # NEEDED FOR NVM ON MAC.
 # ----------------------------------------------
 export NVM_DIR="$HOME/.nvm"
@@ -477,10 +498,8 @@ export NVM_DIR="$HOME/.nvm"
 # export NVM_DIR="$HOME/.nvm"
 #   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 #   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-# pnpm
 
-# NEEDED FOR PNPM GLOBAL ON MAC.
-# ----------------------------------------------
+# pnpm
 export PNPM_HOME="/Users/evan.marshall/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
