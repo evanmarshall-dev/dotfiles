@@ -81,6 +81,7 @@ alias l="echo -e 'Ooooo, what is in here?! 🧐\n\n' && ls" # List contents of c
 alias la="echo -e 'Ooooo, piece a candy! 🍬\n\n' && ls -a" # Lists all contents including hidden files and admin permissions.
 alias p="echo -e 'Where are we again? 😳\n\n' && pwd" # Displays your current directory.
 alias cl="echo -e 'Time to clean up, it is messy in here!! 🧹\n\n' && clear" # Clears terminal/command window.
+alias oiw="code -r" # Open project in same vscode window. Make sure you navigate to said dir and append with a period.
 
 make() {
   echo "Let us create a folder then enter it!"
