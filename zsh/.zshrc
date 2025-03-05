@@ -1,14 +1,14 @@
 # INSTALL HOMEBREW ON WINDOWS/WSL.
 # ----------------------------------------------
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # ADD OH-MY-POSH AS PROMPT.
 # ----------------------------------------------
 # DEFAULT.
-# eval "$(oh-my-posh init zsh)"
+eval "$(oh-my-posh init zsh)"
 
 # TO USE A THEME IN HOMEBREW DIRECTORY.
-eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/chips.omp.json)"
+# eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/chips.omp.json)"
 
 # TO USE CUSTOM THEME IN YOUR CUSTOM THEME DIRECTORY. AFTER EXPORT (SEE BELOW ALIAS).
 # eval "$(oh-my-posh init zsh --config ~/.config/posh/.custom-atomic.omp.toml)"
@@ -20,7 +20,8 @@ eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/chips.om
 
 # FIX FOR TERMINAL DISPLAYING ANSI CHARACTERS. FOR MAC.
 # if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-#   eval "$(oh-my-posh init zsh)"
+#   # eval "$(oh-my-posh init zsh)"
+#   eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/chips.omp.json)"
 # fi
 
 # PATH TO OH MY ZSH INSTALLATION.
@@ -199,6 +200,10 @@ alias vci="pnpm i -g vercel" # Install vercel cli globally using pnpm.
 alias vcu="pnpm i -g vercel@latest" # Update vercel cli.
 alias vcv="vercel --version" # Check vercel cli version.
 alias vcc="vercel project ls --update-required" # Check if any local vercel projects require updates.
+
+# PAYLOAD ALIASES.
+# ----------------------------------------------
+alias payi="pnpx create-payload-app@latest"
 
 # ZSH/OH-MY-ZSH ALIASES.
 # ----------------------------------------------
@@ -488,22 +493,18 @@ alias ffsub="ffmpeg -i $1 -vf ass=big.ass $2" # Takes the above created ass file
 # ----------------------------------------------
 alias extc="npx --package yo --package generator-code -- yo code" # Create boilerplate for vscode extension. Recommended to use default options.
 
-# NEEDED FOR NVM ON MAC.
-# ----------------------------------------------
-# export NVM_DIR="$HOME/.nvm"
-#   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-#   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-# NEEDED FOR NVM ON WSL.
+# NEEDED AFTER NVM INSTALLED.
 # ----------------------------------------------
 export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# pnpm on MAC
-# export PNPM_HOME="/Users/evan.marshall/Library/pnpm"
-# case ":$PATH:" in
-#   *":$PNPM_HOME:"*) ;;
-#   *) export PATH="$PNPM_HOME:$PATH" ;;
-# esac
+# NEEDED AFTER RUNNING PNPM SETUP ON MAC
+# ----------------------------------------------
+# pnpm
+export PNPM_HOME="/Users/evan.marshall/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 # pnpm end

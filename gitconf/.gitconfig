@@ -1,9 +1,91 @@
-# .gitconfig
+# GIT CONFIG ----------------------- #
+# ---------------------------------- #
+# ---------------------------------- #
 
+# DEFAULT ACCOUNT ------------------ #
+# ---------------------------------- #
 [user]
-	name = evanmarshall-dev
-	email = me@evanmarshall.dev
-[init]
-	defaultBranch = main
+	name = evanmarshall-dev # Sets the default git account username.
+	email = me@evanmarshall.dev # Sets the default git account email.
+
+# GLOBAL GITIGNORE ----------------- #
+# ---------------------------------- #
+# fsmonitor/untrackedcache. -------- #
+# only for large repos. ------------ #
 [core]
-	excludesfile = /home/gingaranga/.gitignore_global
+	# excludesfile = /home/gingaranga/.gitignore_global # Specifies global .gitignore path for Windows WSL.
+	excludesfile = /Users/evan.marshall/.gitignore_global # Specifies global .gitignore path for MacOS.
+	# fsmonitor = true # This will run a filesystem monitor (per repository) that notices file changes and updates a cache so that git status doesn’t have to crawl every file and see if anything changed via a thousand mtime stat calls, it can just look at a simple log of file changes (Combine with below).
+	# untrackedCache = true
+
+# DEFAULT BRANCHES ----------------- #
+# ---------------------------------- #
+[init]
+	defaultBranch = main # Sets the default branch name.
+
+# LISTING BRANCHES (cmd: git branch) #
+# ---------------------------------- #
+[column]
+	ui = auto # Puts branch names in column format.
+[branch]
+	sort = -committerdate # Sort branches by most recent commit date.
+
+# LISTING TAGS (cmd: git tag) ------ #
+# ---------------------------------- #
+[tag]
+	sort = version:refname # Sorts tags as integers.
+
+# BETTER DIFF (cmd: git diff) ------ #
+# ---------------------------------- #
+[diff]
+	algorithm = histogram # Sets the diff algorithm.
+	colorMoved = plain # Adds color to show code changes instead of just added and removed.
+	mnemonicPrefix = true # Replace the a/ and b/ in your diff header output with where the diff is coming from, so i/ (index), w/ (working directory) or c/ commit.
+	renames = true # Will detect if a file has been renamed
+
+# BETTER PUSHING (cmd: git push) --- #
+# ---------------------------------- #
+[push]
+	default = simple # Pushes the current branch to the same name on the remote.
+	autoSetupRemote = true # If the upstream is not set, it will automatically set it.
+	followTags = true # Pushes all tags that you have locally that aren’t on the server.
+
+# BETTER FETCHING (cmd: git fetch) - #
+# ---------------------------------- #
+[fetch]
+	prune = true # Makes your remote references as close to what is on the remote as possible. Prune stuff that’s gone (Combine with below two).
+	pruneTags = true
+	all = true
+
+# AUTO-CORRECT PROMPTING ----------- #
+# ---------------------------------- #
+[help]
+	autocorrect = prompt # Try to guess what you meant to type and prompt you.
+
+# COMMIT WITH DIFF ----------------- #
+# ---------------------------------- #
+[commit]
+	verbose = true # Adds diff to the git commit.
+
+# REUSE RECORDED RESOLUTIONS ------- #
+# ---------------------------------- #
+[rerere]
+	enabled = true # Makes sure it records the before and after states of rebase conflicts.
+	autoupdate = true # Will automatically re-apply the resolutions if it sees them again.
+
+# NICER REBASE --------------------- #
+# ---------------------------------- #
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true # It takes stacked refs in a branch and makes sure they're also moved when a branch is rebased.
+
+# BETTER MERGE CONFLICTS ----------- #
+# ---------------------------------- #
+[merge]
+	conflictstyle = zdiff3 # Adds in a section to the merge conflict that shows the code before any changes were made.
+
+# BETTER PULLING ------------------- #
+# ---------------------------------- #
+[pull]
+	rebase = true # Sets the pull default to rebase instead of merge.
