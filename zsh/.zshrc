@@ -1,11 +1,7 @@
-# INSTALL HOMEBREW ON WINDOWS/WSL.
-# ----------------------------------------------
-# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
 # ADD OH-MY-POSH AS PROMPT.
 # ----------------------------------------------
 # DEFAULT.
-eval "$(oh-my-posh init zsh)"
+# eval "$(oh-my-posh init zsh)"
 
 # TO USE A THEME IN HOMEBREW DIRECTORY.
 # eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/chips.omp.json)"
@@ -14,7 +10,7 @@ eval "$(oh-my-posh init zsh)"
 # eval "$(oh-my-posh init zsh --config ~/.config/posh/.custom-atomic.omp.toml)"
 
 # TO USE A REMOTE THEME.
-# eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/cloud-native-azure.omp.json')"
+eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/cloud-native-azure.omp.json')"
 
 # Faves = chips, cloud-native-azure, froczh, iterm2, jandedobbeleer, jblab_2021, kushal, mojada, montys, quick-term, sonicboom_light, wholespace
 
@@ -492,6 +488,13 @@ alias ffsub="ffmpeg -i $1 -vf ass=big.ass $2" # Takes the above created ass file
 # VSCODE EXTENSION CREATOR ALIASES.
 # ----------------------------------------------
 alias extc="npx --package yo --package generator-code -- yo code" # Create boilerplate for vscode extension. Recommended to use default options.
+
+# REGEX VSCODE SEARCH EXAMPLES AND EXPLANATIONS
+# ----------------------------------------------
+# <a[\s\n]+class="ed-type--link store-phone"[\s\n]+href="tel:[^"]*"[\s\n]*>[^<]*<\/a[\s\n]*>
+# [\s\n]+ matches both whitespace and newlines.
+# [^"]* matches any character except ".
+# [^<]* matches any character except <.
 
 # NEEDED AFTER NVM INSTALLED.
 # ----------------------------------------------
