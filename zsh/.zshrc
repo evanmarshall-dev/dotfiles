@@ -505,9 +505,9 @@ export NVM_DIR="$HOME/.nvm"
 # NEEDED AFTER RUNNING PNPM SETUP ON MAC
 # ----------------------------------------------
 # pnpm
-export PNPM_HOME="/Users/evan.marshall/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+# export PNPM_HOME="/Users/evan.marshall/Library/pnpm"
+# case ":$PATH:" in
+#   *":$PNPM_HOME:"*) ;;
+#   *) export PATH="$PNPM_HOME:$PATH" ;;
+# esac
 # pnpm end
