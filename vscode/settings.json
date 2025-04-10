@@ -4,7 +4,7 @@
   "editor.minimap.enabled": false,
   "editor.fontSize": 18,
   "editor.renderWhitespace": "none",
-  "editor.fontFamily": "Fira Code",
+  "editor.fontFamily": "MesloLGM Nerd Font",
   "editor.fontLigatures": true,
   "editor.insertSpaces": true,
   "editor.wordWrap": "on",
@@ -31,7 +31,7 @@
   "workbench.editor.enablePreview": false,
   "workbench.editor.restoreViewState": true,
   "workbench.tree.enableStickyScroll": true,
-  "workbench.activityBar.location": "top",
+  "workbench.activityBar.location": "hidden",
   "workbench.tree.indent": 4,
   // SIDEBAR & ACTIVITY BAR TOGGLE
   "multiCommand.commands": [
@@ -44,7 +44,7 @@
     }
   ],
   // TERMINAL
-  "terminal.integrated.fontFamily": "FiraCode Nerd Font",
+  "terminal.integrated.fontFamily": "MesloLGM Nerd Font",
   "terminal.integrated.fontSize": 18,
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.persistentSessionScrollback": 100,
@@ -114,12 +114,6 @@
   "scss.hover.documentation": false,
   "html.hover.documentation": false,
   "npm.scriptHover": false,
-  // Co-Pilot
-  "github.copilot.enable": {
-    "markdown": true,
-    "scminput": true,
-    "plaintext": true
-  },
   // SPELL CHECKER IGNORED WORDS
   "cSpell.userWords": [
     "acadiarefrigeration",
@@ -145,6 +139,7 @@
     "daisyui",
     "datasource",
     "dayslater",
+    "deepseek",
     "dgit",
     "donot",
     "Downie",
@@ -163,6 +158,8 @@
     "gatesinsurance",
     "Getpages",
     "gigglesnshit",
+    "Ginga",
+    "gingaranga",
     "glooscap",
     "glooscapfirstnation",
     "Gluckstein",
@@ -186,6 +183,7 @@
     "Jetbrains",
     "JEWELLERY",
     "kentfields",
+    "Kentville",
     "Kingsway",
     "lato",
     "Liebeskind",
@@ -210,6 +208,7 @@
     "noopener",
     "noreferrer",
     "noto",
+    "Nuxt",
     "ollama",
     "openai",
     "opengraph",
@@ -217,12 +216,14 @@
     "ossp",
     "Outro",
     "Parens",
+    "payloadcms",
     "playfair",
     "portabletext",
     "prerender",
     "Prerendered",
     "Prerendering",
     "prerenders",
+    "prismic",
     "pwsh",
     "refrige",
     "safeguardservices",
@@ -267,6 +268,12 @@
   ],
   // EXTENSION
   "color-highlight.markerType": "dot-before",
+  // COPILOT
+  "github.copilot.chat.codesearch.enabled": true,
+  "github.copilot.chat.editor.temporalContext.enabled": true,
+  "github.copilot.chat.edits.temporalContext.enabled": true,
+  "github.copilot.chat.scopeSelection": true,
+  "github.copilot.nextEditSuggestions.enabled": true,
   // MISCELLANEOUS
   "security.workspace.trust.untrustedFiles": "open",
   "css.lint.unknownAtRules": "ignore",
@@ -277,7 +284,6 @@
   "npm.packageManager": "pnpm",
   "window.customTitleBarVisibility": "auto",
   "redhat.telemetry.enabled": false,
-  "svelte.enable-ts-plugin": true,
   "html.format.indentHandlebars": true,
   "html.format.indentInnerHtml": true,
   "typescript.format.indentSwitchCase": false

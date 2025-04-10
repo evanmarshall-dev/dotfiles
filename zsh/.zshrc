@@ -14,23 +14,25 @@ eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDob
 
 # Faves = chips, cloud-native-azure, froczh, iterm2, jandedobbeleer, jblab_2021, kushal, mojada, montys, quick-term, sonicboom_light, wholespace
 
-# FIX FOR TERMINAL DISPLAYING ANSI CHARACTERS. FOR MAC.
+# FIX FOR TERMINAL DISPLAYING ANSI CHARACTERS. FOR MAC IF USING ITERM.
 # if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
 #   # eval "$(oh-my-posh init zsh)"
 #   eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/chips.omp.json)"
 # fi
 
+# NEEDED FOR ZSH-COMPLETIONS
+# ----------------------------------------------
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+
 # PATH TO OH MY ZSH INSTALLATION.
 # ----------------------------------------------
 export ZSH="$HOME/.oh-my-zsh"
 
-# ZSH THEMES.
-# ----------------------------------------------
-# ZSH_THEME="random"
-
 # ZSH PLUGINS.
 # ----------------------------------------------
 plugins=(
+  git
+  zsh-completions
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
@@ -421,11 +423,6 @@ alias nlg="npm ls -g" # Lists the global installed npm packages.
 
 # OH-MY-POSH ALIASES.
 # ----------------------------------------------
-alias ompwin="curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.config/ohmyposh" # Install oh my posh on windows WSL and install to .config dir.
-alias ompf="oh-my-posh font install" # Starts the font install prompt. Select font to install.
-alias ompe="exec zsh" # Refreshes terminal after changes made to profile.
-alias ompu="oh-my-posh upgrade" # Upgrades oh my posh.
-
 ompt() {
   oh-my-posh config export --output ~/.config/posh/.custom-$1.omp.toml
 } # Exports current theme to be customized. Append alias with custom theme export name. Follow up with updating the oh my posh eval at top of file.
@@ -476,18 +473,11 @@ huskySet() {
   npm run prepare
 } # Installs Husky, initializes it and then creates a pre-commit file.
 
-# TODO: Modify the following code to add lint-staged to the husky pre-commit. Then add to above alias function.
-## echo "# New Repo" >> README.md
-
 # FFMPEG ALIASES.
 # ----------------------------------------------
 alias ffc="ffmpeg -i $1 $2" # Replace $1 and $2 with input file and output file, respectively to convert $1 into $2.
 alias ffs="ffmpeg -i $1.srt big.ass"
 alias ffsub="ffmpeg -i $1 -vf ass=big.ass $2" # Takes the above created ass file and adds it as a subtitle to video file $1. The output is the $2 argument.
-
-# VSCODE EXTENSION CREATOR ALIASES.
-# ----------------------------------------------
-alias extc="npx --package yo --package generator-code -- yo code" # Create boilerplate for vscode extension. Recommended to use default options.
 
 # REGEX VSCODE SEARCH EXAMPLES AND EXPLANATIONS
 # ----------------------------------------------
@@ -498,16 +488,12 @@ alias extc="npx --package yo --package generator-code -- yo code" # Create boile
 
 # NEEDED AFTER NVM INSTALLED.
 # ----------------------------------------------
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# NEEDED AFTER RUNNING PNPM SETUP ON MAC
+# NEEDED AFTER NVM INSTALLED ON MAC USING BREW.
 # ----------------------------------------------
-# pnpm
-# export PNPM_HOME="/Users/evan.marshall/Library/pnpm"
-# case ":$PATH:" in
-#   *":$PNPM_HOME:"*) ;;
-#   *) export PATH="$PNPM_HOME:$PATH" ;;
-# esac
-# pnpm end
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
