@@ -13,8 +13,8 @@
 # fsmonitor/untrackedcache. -------- #
 # only for large repos. ------------ #
 [core]
-	excludesfile = /home/gingaranga/.gitignore_global # Specifies global .gitignore path for Windows WSL.
-	# excludesfile = /Users/evan.marshall/.gitignore_global # Specifies global .gitignore path for MacOS.
+	# excludesfile = /home/gingaranga/.gitignore_global # Specifies global .gitignore path for Windows WSL.
+	excludesfile = /Users/gingaranga/.gitignore_global # Specifies global .gitignore path for MacOS.
 	# fsmonitor = true # This will run a filesystem monitor (per repository) that notices file changes and updates a cache so that git status doesn’t have to crawl every file and see if anything changed via a thousand mtime stat calls, it can just look at a simple log of file changes (Combine with below).
 	# untrackedCache = true
 
