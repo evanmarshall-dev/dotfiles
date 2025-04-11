@@ -1,3 +1,6 @@
+# Added for homebrew on windows WSL Ubuntu
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 # ADD OH-MY-POSH AS PROMPT.
 # ----------------------------------------------
 # DEFAULT.
@@ -31,8 +34,13 @@ export ZSH="$HOME/.oh-my-zsh"
 # ZSH PLUGINS.
 # ----------------------------------------------
 plugins=(
+<<<<<<< Updated upstream
   git
   zsh-completions
+||||||| Stash base
+=======
+  brew
+>>>>>>> Stashed changes
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
@@ -494,6 +502,24 @@ alias ffsub="ffmpeg -i $1 -vf ass=big.ass $2" # Takes the above created ass file
 
 # NEEDED AFTER NVM INSTALLED ON MAC USING BREW.
 # ----------------------------------------------
+<<<<<<< Updated upstream
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+||||||| Stash base
+# pnpm
+# export PNPM_HOME="/Users/evan.marshall/Library/pnpm"
+# case ":$PATH:" in
+#   *":$PNPM_HOME:"*) ;;
+#   *) export PATH="$PNPM_HOME:$PATH" ;;
+# esac
+# pnpm end
+=======
+# pnpm
+# export PNPM_HOME="/Users/evan.marshall/Library/pnpm"
+# case ":$PATH:" in
+#   *":$PNPM_HOME:"*) ;;
+#   *) export PATH="$PNPM_HOME:$PATH" ;;
+# esac
+# pnpm endeval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+>>>>>>> Stashed changes
