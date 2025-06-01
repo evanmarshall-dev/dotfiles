@@ -17,7 +17,7 @@
 	# excludesfile = /Users/gingaranga/.gitignore_global # Specifies global .gitignore path for MacOS.
 	# fsmonitor = true # This will run a filesystem monitor (per repository) that notices file changes and updates a cache so that git status doesn’t have to crawl every file and see if anything changed via a thousand mtime stat calls, it can just look at a simple log of file changes (Combine with below).
 	# untrackedCache = true
-	editor = code --wait
+	editor = code --wait # Set vscode as default editor and wait for save and exit to continue git process.
 
 # DEFAULT BRANCHES ----------------- #
 # ---------------------------------- #
@@ -91,5 +91,7 @@
 [pull]
 	rebase = true # Sets the pull default to rebase instead of merge.
 
+# USE WINDOWS CRED MANAGER --------- #
+# ---------------------------------- #
 [credential]
 	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe

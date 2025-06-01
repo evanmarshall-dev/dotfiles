@@ -1,31 +1,34 @@
 # Added for homebrew on windows WSL Ubuntu
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # ADD OH-MY-POSH AS PROMPT.
 # ----------------------------------------------
 # DEFAULT.
 # eval "$(oh-my-posh init zsh)"
 
+# Fix for ANSI characters
+# if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
+#   eval "$(oh-my-posh init zsh)"
+# fi
+
 # TO USE A THEME IN HOMEBREW DIRECTORY.
-# eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/chips.omp.json)"
+if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
+  eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/cloud-native-azure.omp.json)"
+fi
 
 # TO USE CUSTOM THEME IN YOUR CUSTOM THEME DIRECTORY. AFTER EXPORT (SEE BELOW ALIAS).
 # eval "$(oh-my-posh init zsh --config ~/.config/posh/.custom-atomic.omp.toml)"
 
 # TO USE A REMOTE THEME.
-eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/cloud-native-azure.omp.json')"
+# eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/cloud-native-azure.omp.json')"
 
-# Faves = chips, cloud-native-azure, froczh, iterm2, jandedobbeleer, jblab_2021, kushal, mojada, montys, quick-term, sonicboom_light, wholespace
+# Faves = chips.omp.json, cloud-native-azure.omp.json, froczh.omp.json, iterm2.omp.json, jandedobbeleer.omp.json, jblab_2021.omp.json, kushal.omp.json, mojada.omp.json, montys.omp.json, quick-term.omp.json, sonicboom_light.omp.json, wholespace.omp.json
 
-# FIX FOR TERMINAL DISPLAYING ANSI CHARACTERS. FOR MAC IF USING ITERM.
-# if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-#   # eval "$(oh-my-posh init zsh)"
-#   eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/chips.omp.json)"
-# fi
-
-# NEEDED FOR ZSH-COMPLETIONS
+# NEEDED FOR ZSH-COMPLETIONS (Before omz sourcing)
 # ----------------------------------------------
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+autoload -U compinit && compinit
+source "$ZSH/oh-my-zsh.sh"
 
 # PATH TO OH MY ZSH INSTALLATION.
 # ----------------------------------------------
@@ -34,8 +37,9 @@ export ZSH="$HOME/.oh-my-zsh"
 # ZSH PLUGINS.
 # ----------------------------------------------
 plugins=(
-  git
   zsh-completions
+  git
+  node
   brew
   zsh-autosuggestions
   zsh-syntax-highlighting
@@ -106,7 +110,12 @@ make() {
 alias bl="echo -e 'Let us see what brews you have in your collection. 📚\n\n' && brew list" # Lists all Homebrew packages.
 alias bi="echo -e 'Let us install a brew package. \n\n' && brew install $1" # Installs a Homebrew package. Just append the package name after the alias.
 alias bic="echo -e 'Let us install a brew cask. \n\n' && brew install $1 --cask" # Installs a Homebrew cask. Just append the cask name after the alias.
-
+binf() {
+  echo "***************************************************"
+  echo "Installing nerd font: font-$1-nerd-font 🤓\n\n"
+  echo "***************************************************"
+  brew install --cask "font-$1-nerd-font"
+} # Installs nerd font. Tested on linuxbrew install Windows WSL2.
 brewUp() {
   echo "Your brew is looking a bit sour, better refresh that! 🍻🍻"
   echo "***************************************************"
@@ -485,27 +494,13 @@ alias ffsub="ffmpeg -i $1 -vf ass=big.ass $2" # Takes the above created ass file
 
 # REGEX VSCODE SEARCH EXAMPLES AND EXPLANATIONS
 # ----------------------------------------------
-# <a[\s\n]+class="ed-type--link store-phone"[\s\n]+href="tel:[^"]*"[\s\n]*>[^<]*<\/a[\s\n]*>
+# EX: <a[\s\n]+class="ed-type--link store-phone"[\s\n]+href="tel:[^"]*"[\s\n]*>[^<]*<\/a[\s\n]*>
 # [\s\n]+ matches both whitespace and newlines.
 # [^"]* matches any character except ".
 # [^<]* matches any character except <.
 
 # NEEDED AFTER NVM INSTALLED.
 # ----------------------------------------------
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-# NEEDED AFTER NVM INSTALLED ON MAC USING BREW.
-# ----------------------------------------------
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# pnpm
-# export PNPM_HOME="/Users/evan.marshall/Library/pnpm"
-# case ":$PATH:" in
-#   *":$PNPM_HOME:"*) ;;
-#   *) export PATH="$PNPM_HOME:$PATH" ;;
-# esac
-# pnpm endeval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
