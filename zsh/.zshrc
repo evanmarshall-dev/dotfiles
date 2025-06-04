@@ -284,18 +284,34 @@ gitCom() {
   echo "Now, checking to see if you created a commit message. ❓❓"
   echo "***************************************************"
   if [ ! -n "$1" ]; then
+    # echo "*************************************************"
+    # echo "Enter a commit message, silly! 😠😠"
+    # echo "*************************************************"
     echo "*************************************************"
-    echo "Enter a commit message, silly! 😠😠"
+    echo "No commit message provided. Opening editor... 📝"
     echo "*************************************************"
+    git commit # This will open VS Code (or your configured editor)
   else
     echo "*************************************************"
     echo "Great message! Committing now. 🗒️🗒️"
     echo "*************************************************"
-    git commit -m $1
-    echo "*************************************************"
-    echo "All checks cleared (husky, git staged), pushing now! ⬆️⬆️"
-    echo "*************************************************"
+    # git commit -m $1
+    # echo "*************************************************"
+    # echo "All checks cleared (husky, git staged), pushing now! ⬆️⬆️"
+    # echo "*************************************************"
+    # git push
+    git commit -m "$1" # Use the provided message, properly quoted
+  fi
+  # Check if the commit was successful before pushing.
+  if [ $? -eq 0 ]; then
+    echo "***************************************************"
+    echo "Commit successful. All checks cleared, pushing now! ⬆️⬆️"
+    echo "***************************************************"
     git push
+  else
+    echo "***************************************************"
+    echo "Commit failed or was aborted. Not pushing."
+    echo "***************************************************"
   fi
   echo "***************************************************"
   echo "Let us get some details about the latest commit. 🖨️🖨️"
