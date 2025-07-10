@@ -110,12 +110,14 @@ make() {
 alias bl="echo -e 'Let us see what brews you have in your collection. 📚\n\n' && brew list" # Lists all Homebrew packages.
 alias bi="echo -e 'Let us install a brew package. \n\n' && brew install $1" # Installs a Homebrew package. Just append the package name after the alias.
 alias bic="echo -e 'Let us install a brew cask. \n\n' && brew install $1 --cask" # Installs a Homebrew cask. Just append the cask name after the alias.
+
 binf() {
   echo "***************************************************"
   echo "Installing nerd font: font-$1-nerd-font 🤓\n\n"
   echo "***************************************************"
   brew install --cask "font-$1-nerd-font"
 } # Installs nerd font. Tested on linuxbrew install Windows WSL2.
+
 brewUp() {
   echo "Your brew is looking a bit sour, better refresh that! 🍻🍻"
   echo "***************************************************"
@@ -284,9 +286,6 @@ gitCom() {
   echo "Now, checking to see if you created a commit message. ❓❓"
   echo "***************************************************"
   if [ ! -n "$1" ]; then
-    # echo "*************************************************"
-    # echo "Enter a commit message, silly! 😠😠"
-    # echo "*************************************************"
     echo "*************************************************"
     echo "No commit message provided. Opening editor... 📝"
     echo "*************************************************"
@@ -295,11 +294,6 @@ gitCom() {
     echo "*************************************************"
     echo "Great message! Committing now. 🗒️🗒️"
     echo "*************************************************"
-    # git commit -m $1
-    # echo "*************************************************"
-    # echo "All checks cleared (husky, git staged), pushing now! ⬆️⬆️"
-    # echo "*************************************************"
-    # git push
     git commit -m "$1" # Use the provided message, properly quoted
   fi
   # Check if the commit was successful before pushing.
@@ -368,7 +362,7 @@ alias ghci="gh extension install github/gh-copilot" # Install GitHub CLI extensi
 alias ghcs="gh copilot suggest '$1'" # Suggests a command. Make sure you append what you want a suggestion for to this alias.
 alias ghce="gh copilot explain '$1'" # Explains a command. Make sure you append what you want an explanation for to this alias.
 
-# REACT/VITE ALIASES.
+# REACT/VITE/VITEST ALIASES.
 # ----------------------------------------------
 alias rca="npx create-react-app" # Creates React app using create-react-app tool.
 
@@ -383,10 +377,14 @@ rcvc() {
   else
     pnpm create vite $1 --template $2
   fi
-} #Create React app using Vite and specifying app name and template used.
+} #Create React app using Vite and specifying app name and template (i.e. react, vue, svelte) used.
 
 alias rcv="pnpm create vite" # Creates React app using Vite tool.
 alias rrd="pnpm run dev" # Starts dev server to preview project.
+alias vti="pnpm install -D vitest @vitest/ui eslint-plugin-vitest" # Installs dependencies for vitest.
+alias rtli="pnpm install -D jsdom @testing-library/jest-dom @testing-library/react" # Installs dependencies for react testing library.
+
+alias jsw="npx json-server --watch data/db.json --port 8000"
 
 # NEXTJS ALIASES.
 # ----------------------------------------------
