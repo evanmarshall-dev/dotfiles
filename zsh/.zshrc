@@ -366,18 +366,16 @@ alias ghce="gh copilot explain '$1'" # Explains a command. Make sure you append 
 # ----------------------------------------------
 alias rca="npx create-react-app" # Creates React app using create-react-app tool.
 
-rcvc() {
-  if [ -z "$1" ]; then
-    echo "Please provide a name for your app."
-    return
+cva() {
+  if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "Error: Both an app name and a template are required."
+    echo "Usage: rcvc <app-name> <template-name>"
+    echo "Example: rcvc my-react-app react"
+    return 1
   fi
+  pnpm create vite "$1" --template "$2"
+} # Create a Vite app, requiring both an app name and a template (e.g., react, vue, svelte).
 
-  if [ -z "$2" ]; then
-    pnpm create vite $1
-  else
-    pnpm create vite $1 --template $2
-  fi
-} #Create React app using Vite and specifying app name and template (i.e. react, vue, svelte) used.
 
 alias rcv="pnpm create vite" # Creates React app using Vite tool.
 alias rrd="pnpm run dev" # Starts dev server to preview project.
