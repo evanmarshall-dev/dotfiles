@@ -273,6 +273,10 @@ alias gc="echo -e 'Let us The Sixth Day this shhhh! 🕕\n\n' && git clone $1" #
 alias gpu="echo -e 'What are they doing up there? Pull it down! 😶‍🌫️\n\n' && git pull" # Pulls changes from remote branch to local.
 alias gp="echo -e 'Alright, we done. Push it up! 🫷⬆️\n\n' && git push" # Pushes local changes to origin.
 
+gitunstage() {
+  git reset HEAD "$1" && git rm --cached -r "$1"
+} # Pass any file or directory as an argument to remove cached staging changes for said file/dir being added to .gitignore (i.e. gitunstage path/to/file.txt or gitunstage out/).
+
 gitCom() {
   echo "You have done some great work! Now let us send that up to the repo for safe keeping. ✅✅"
   echo "***************************************************"
