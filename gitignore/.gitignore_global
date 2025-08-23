@@ -152,10 +152,17 @@ db.sqlite3
 db.sqlite3-journal
 
 #============================== Node and Python ==============================#
-.env
+.env*
 
 #=================================== Node ====================================#
-node_modules
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
 #================================== Python ===================================#
 *.py[cd]
@@ -168,7 +175,7 @@ __pycache__/
 #================================== Testing ==================================#
 .rspec
 capybara-*.html
-coverage
+/coverage
 pickle-email-*.html
 rerun.txt
 spec/reports
@@ -181,5 +188,15 @@ test/version_tmp
 .gemini/
 
 #================================== Next.js ====================================#
-.next/
-out/
+/.next/
+/out/
+
+# production
+/build
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
