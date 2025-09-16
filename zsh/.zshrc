@@ -367,6 +367,21 @@ alias ghci="gh extension install github/gh-copilot" # Install GitHub CLI extensi
 alias ghcs="gh copilot suggest '$1'" # Suggests a command. Make sure you append what you want a suggestion for to this alias.
 alias ghce="gh copilot explain '$1'" # Explains a command. Make sure you append what you want an explanation for to this alias.
 
+# GitHub commands to craft a good commit message. TODO: Create a function that uses these commands to help create a good commit message.
+# Show branch and short status
+git status -sb
+
+# See what changed (unstaged)
+git diff --stat
+git diff --name-only
+
+# See what’s staged (if any)
+git diff --cached --stat
+git diff --cached --name-only
+
+# Recent history for context
+git log --oneline -n 5
+
 # REACT/VITE/VITEST ALIASES.
 # ----------------------------------------------
 alias rca="npx create-react-app" # Creates React app using create-react-app tool.
