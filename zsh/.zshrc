@@ -45,6 +45,13 @@ plugins=(
   zsh-syntax-highlighting
 )
 
+# MCP SERVERS
+# ----------------------------------------------
+export SHADCN_PAT=REDACTED_TOKEN # Token used with ShadCN/ui MCP Server.
+export GITHUB_PAT=REDACTED_TOKEN # Token used with Github MCP Server.
+export MONGODB_URI="mongodb+srv://evanmarshall1986:REDACTED_PASSWORD@student-cluster.x144wd1.mongodb.net/?retryWrites=true&w=majority&appName=student-cluster"
+export FIRECRAWL_API_KEY=REDACTED_API_KEY # Token used with Firecrawl MCP Server.
+
 # SOURCE.
 # ----------------------------------------------
 source $ZSH/oh-my-zsh.sh
@@ -318,46 +325,135 @@ gitCom() {
   git log --graph --oneline --decorate
 } # Adds all changed files to staging and generates a commit with message. Append the git commit message to the end of this function alias within quotes. If all checks passed, it then pushes to remote repo.
 
-gitNew() {
-  echo "You just created a local project and a blank remote repo. Let us connect the two! 👊👊"
+gitConnectNew() {
+  echo "Let's connect your local project to a new remote GitHub repo! ��"
   echo "***************************************************"
-  echo "First, let us create a template README for the repo. 📖📖"
+
+  # Prompt for project name (required)
+  echo "Enter the project name (this will be the repo name): "
+  read project_name
+  if [ -z "$project_name" ]; then
+    echo "❌ Project name is required. Exiting..."
+    return 1
+  fi
+
+  # Prompt for SSH alias (default: dgit)
   echo "***************************************************"
-  echo "# New Repo" >> README.md
+  echo "Enter SSH alias (default: dgit): "
+  read ssh_alias
+  ssh_alias=${ssh_alias:-dgit}
+
+  # Prompt for GitHub username (required)
   echo "***************************************************"
-  echo "Now, let us initiate a git directory in your local project. 📂📂"
+  echo "Enter GitHub username: "
+  read github_username
+  if [ -z "$github_username" ]; then
+    echo "❌ GitHub username is required. Exiting..."
+    return 1
+  fi
+
+  # Prompt for README header (default: project name)
+  echo "***************************************************"
+  echo "Enter README header content (default: $project_name): "
+  read readme_header
+  readme_header=${readme_header:-$project_name}
+
+  # Prompt for commit message (default)
+  echo "***************************************************"
+  echo "Enter commit message (default: init: Initial git initialization with project name as header.): "
+  read commit_message
+  commit_message=${commit_message:-"init: Initial git initialization with project name as header."}
+
+  echo "***************************************************"
+  echo "📋 Summary:"
+  echo "  Project: $project_name"
+  echo "  SSH Alias: $ssh_alias"
+  echo "  GitHub User: $github_username"
+  echo "  README Header: $readme_header"
+  echo "  Commit Message: $commit_message"
+  echo "  Remote URL: git@$ssh_alias:$github_username/$project_name.git"
+  echo "***************************************************"
+  echo "Continue? (y/n): "
+  read confirm
+  if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+    echo "❌ Cancelled by user."
+    return 1
+  fi
+
+  echo "***************************************************"
+  echo "Step 1: Creating README.md with custom header 📖📖"
+  echo "***************************************************"
+  echo "# $readme_header" > README.md
+  if [ $? -ne 0 ]; then
+    echo "❌ Failed to create README.md"
+    return 1
+  fi
+  echo "✅ README.md created successfully"
+
+  echo "***************************************************"
+  echo "Step 2: Initializing git repository 📂📂"
   echo "***************************************************"
   git init
+  if [ $? -ne 0 ]; then
+    echo "❌ Failed to initialize git repository"
+    return 1
+  fi
+  echo "✅ Git repository initialized"
+
   echo "***************************************************"
-  echo "Adding README.md to staging. 👩‍🎤👩‍🎤"
+  echo "Step 3: Adding README.md to staging 👩‍🎤👩‍🎤"
   echo "***************************************************"
   git add README.md
+  if [ $? -ne 0 ]; then
+    echo "❌ Failed to add README.md to staging"
+    return 1
+  fi
+  echo "✅ README.md added to staging"
+
   echo "***************************************************"
-  echo "Create a commit message for the first commit to remote repo. 🗒️🗒️"
+  echo "Step 4: Creating initial commit 🗒️🗒️"
   echo "***************************************************"
-  git commit -m "Created new local project"
+  git commit -m "$commit_message"
+  if [ $? -ne 0 ]; then
+    echo "❌ Failed to create commit"
+    return 1
+  fi
+  echo "✅ Initial commit created"
+
   echo "***************************************************"
-  echo "Set the default branch of the project to main. 🌳🌳"
+  echo "Step 5: Setting default branch to main 🌳🌳"
   echo "***************************************************"
   git branch -M main
-  echo "***************************************************"
-  echo "Now, checking to see if you added appended the remote repo name to this command. ❓❓"
-  echo "***************************************************"
-  if [ ! -n "$1" ]; then
-    echo "*************************************************"
-    echo "Enter the remote repo name, silly! 😠😠"
-    echo "*************************************************"
-  else
-    echo "*************************************************"
-    echo "Great, you added the remote repo name, now we will add remote repo as the origin. 😀😀"
-    echo "*************************************************"
-    git remote add origin git@dgit:evanmarshall-dev/"$1".git
-    echo "*************************************************"
-    echo "Push committed local file to the remote repo. ⬆️⬆️"
-    echo "*************************************************"
-    git push -u origin main
+  if [ $? -ne 0 ]; then
+    echo "❌ Failed to set branch to main"
+    return 1
   fi
-} # Connect a local project to an empty remote git repo, add template README file, stage README, commit README, and then push README to the remote repo or origin.
+  echo "✅ Default branch set to main"
+
+  echo "***************************************************"
+  echo "Step 6: Adding remote origin ��"
+  echo "***************************************************"
+  git remote add origin git@$ssh_alias:$github_username/$project_name.git
+  if [ $? -ne 0 ]; then
+    echo "❌ Failed to add remote origin"
+    return 1
+  fi
+  echo "✅ Remote origin added"
+
+  echo "***************************************************"
+  echo "Step 7: Pushing to remote repository ⬆️⬆️"
+  echo "***************************************************"
+  git push -u origin main
+  if [ $? -ne 0 ]; then
+    echo "❌ Failed to push to remote repository"
+    return 1
+  fi
+
+  echo "***************************************************"
+  echo "🎉 SUCCESS! Local project connected to remote repo!"
+  echo "Repository: https://github.com/$github_username/$project_name"
+  echo "***************************************************"
+} # Connect a local project to a new remote GitHub repo with interactive prompts for all parameters, custom README header, and comprehensive error handling.
 
 # GITHUB CLI ALIASES.
 # ----------------------------------------------
@@ -369,18 +465,18 @@ alias ghce="gh copilot explain '$1'" # Explains a command. Make sure you append 
 
 # GitHub commands to craft a good commit message. TODO: Create a function that uses these commands to help create a good commit message.
 # Show branch and short status
-git status -sb
+# ? git status -sb
 
 # See what changed (unstaged)
-git diff --stat
-git diff --name-only
+# ? git diff --stat
+# ? git diff --name-only
 
 # See what’s staged (if any)
-git diff --cached --stat
-git diff --cached --name-only
+# ? git diff --cached --stat
+# ? git diff --cached --name-only
 
 # Recent history for context
-git log --oneline -n 5
+# ? git log --oneline -n 5
 
 # REACT/VITE/VITEST ALIASES.
 # ----------------------------------------------
