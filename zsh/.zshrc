@@ -45,13 +45,6 @@ plugins=(
   zsh-syntax-highlighting
 )
 
-# MCP SERVERS
-# ----------------------------------------------
-export SHADCN_PAT=REDACTED_TOKEN # Token used with ShadCN/ui MCP Server.
-export GITHUB_PAT=REDACTED_TOKEN # Token used with Github MCP Server.
-export MONGODB_URI="mongodb+srv://evanmarshall1986:REDACTED_PASSWORD@student-cluster.x144wd1.mongodb.net/?retryWrites=true&w=majority&appName=student-cluster"
-export FIRECRAWL_API_KEY=REDACTED_API_KEY # Token used with Firecrawl MCP Server.
-
 # SOURCE.
 # ----------------------------------------------
 source $ZSH/oh-my-zsh.sh
