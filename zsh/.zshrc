@@ -416,6 +416,15 @@ alias ffc="ffmpeg -i $1 $2" # Replace $1 and $2 with input file and output file,
 alias ffs="ffmpeg -i $1.srt big.ass"
 alias ffsub="ffmpeg -i $1 -vf ass=big.ass $2" # Takes the above created ass file and adds it as a subtitle to video file $1. The output is the $2 argument.
 
+# GARUDA LINUX/ARCH
+# ----------------------------------------------
+alias pacfind="sudo pacman -Ss $1" # Search for a package in the repositories.
+alias pacin="sudo pacman -S $1" # Install a package.
+alias pacrm="sudo pacman -Rns $1" # Remove a package.
+alias pacup="sudo pacman -Sy" # Update package database.
+alias sysu="sudo pacman -Syu" # Full system upgrade.
+alias pacls="pacman -Q $1" # List installed packages.
+
 # REGEX DEFINITION
 # ----------------------------------------------
 # EX: <a[\s\n]+class="ed-type--link store-phone"[\s\n]+href="tel:[^"]*"[\s\n]*>[^<]*<\/a[\s\n]*>
@@ -426,12 +435,20 @@ alias ffsub="ffmpeg -i $1 -vf ass=big.ass $2" # Takes the above created ass file
 # ----------------------------------------------
 # LOAD NVM
 # ----------------------------------------------
-export NVM_DIR="$HOME/.var/app/com.visualstudio.code/config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm for Ubuntu.
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
 # ----------------------------------------------
 # PATH VARIABLES
 # ----------------------------------------------
+
+# SETTING PATH FOR LOCAL BINARIES
+# ----------------------------------------------
 export PATH="/home/gingaranga/.local/bin:$PATH"
-export PATH="$(python3 -m site --user-base)/bin:$PATH"
+
+# LOAD PYENV
+# ----------------------------------------------
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
