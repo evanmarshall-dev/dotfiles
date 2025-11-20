@@ -1,4 +1,18 @@
 # ----------------------------------------------
+# PATH VARIABLES
+# ----------------------------------------------
+
+# SETTING PATH FOR LOCAL BINARIES
+# ----------------------------------------------
+export PATH="/home/gingaranga/.local/bin:$PATH"
+
+# LOAD PYENV
+# ----------------------------------------------
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+
+# ----------------------------------------------
 # OH-MY-ZSH CONFIGURATION & THEME
 # - Favourite themes: chips.omp.json, cloud-native-azure.omp.json, froczh.omp.json, iterm2.omp.json, jandedobbeleer.omp.json, jblab_2021.omp.json, kushal.omp.json, mojada.omp.json, montys.omp.json, quick-term.omp.json, sonicboom_light.omp.json, wholespace.omp.json
 # ----------------------------------------------
@@ -438,17 +452,3 @@ alias pacls="pacman -Q $1" # List installed packages.
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-
-# ----------------------------------------------
-# PATH VARIABLES
-# ----------------------------------------------
-
-# SETTING PATH FOR LOCAL BINARIES
-# ----------------------------------------------
-export PATH="/home/gingaranga/.local/bin:$PATH"
-
-# LOAD PYENV
-# ----------------------------------------------
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - zsh)"
