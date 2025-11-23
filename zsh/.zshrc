@@ -8,9 +8,9 @@ export PATH="/home/gingaranga/.local/bin:$PATH"
 
 # LOAD PYENV
 # ----------------------------------------------
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - zsh)"
+# export PYENV_ROOT="$HOME/.pyenv"
+# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init - zsh)"
 
 # ----------------------------------------------
 # OH-MY-ZSH CONFIGURATION & THEME
@@ -121,7 +121,7 @@ brewUp() {
 
 # UBUNTU / LINUX
 # ----------------------------------------------
-alias -g uup="echo -e 'Your linux packages are looking a bit dated... 👴\n\n' && sudo apt-get update && sudo apt-get upgrade -y" # Updates/upgrade linux packages and prompt "yes" anytime command asks for it.
+alias -g uup="echo -e 'Your linux packages are looking a bit dated... 👴\n\n' && sudo apt-get update && sudo apt-get upgrade -y && sudo apt autoremove" # Updates/upgrade linux packages and prompt "yes" anytime command asks for it.
 alias lroot="sudo chown root: $1" # Give root ownership to file or folder. Append name of file or folder.
 alias l600="sudo chmod 600 $1" # Give 600 permissions (read/write) to file or folder. Append name of file or folder.
 alias l775="sudo chmod 775 $1" # Give 775 (all: read/write/execute) permissions to file or folder. Append name of file or folder.
@@ -438,6 +438,15 @@ alias pacrm="sudo pacman -Rns $1" # Remove a package.
 alias pacup="sudo pacman -Sy" # Update package database.
 alias sysu="sudo pacman -Syu" # Full system upgrade.
 alias pacls="pacman -Q $1" # List installed packages.
+
+# POSTGRESQL
+# ----------------------------------------------
+alias pgi="sudo apt install postgresql postgresql-contrib" # Install PostgreSQL and its contrib package
+alias pgst="sudo service postgresql status" # Check the status of the PostgreSQL service
+alias pgs="sudo service postgresql start" # Start the PostgreSQL service
+alias pgsp="sudo service postgresql stop" # Stop the PostgreSQL service
+alias pgpass="sudo passwd $1" # Change the password for a PostgreSQL user. Append with username.
+alias pgconn="sudo -u $1 psql" # Connect to PostgreSQL as the postgres user
 
 # REGEX DEFINITION
 # ----------------------------------------------
