@@ -75,6 +75,16 @@ macInit() {
   echo "DONE! 😃"
 } # Show hidden folders in MacOSX as well as other configs
 
+macDockSp() {
+  echo "Adding a small space to the dock... 🛳️"
+  defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="small-spacer-tile";}' && killall Dock
+} # Adds a small spacer to the MacOSX dock to help with organization.
+
+macDockRm() {
+  echo "Removing all spacers from the dock... 🛳️"
+  defaults write com.apple.dock persistent-apps -array && killall Dock
+} # Removes all spacers from the MacOSX dock.
+
 # CLI/GENERAL
 # ----------------------------------------------
 alias up="echo -e 'Going up a directory, boiiii! 🛸\n\n' && cd .." # Up one directory.
