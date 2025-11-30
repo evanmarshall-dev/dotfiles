@@ -2,15 +2,15 @@
 # PATH VARIABLES
 # ----------------------------------------------
 
-# SETTING PATH FOR LOCAL BINARIES
+# SETTING EXECUTABLE PATHS
 # ----------------------------------------------
-export PATH="/home/gingaranga/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # LOAD PYENV
 # ----------------------------------------------
-# export PYENV_ROOT="$HOME/.pyenv"
-# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init - zsh)"
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
 
 # ----------------------------------------------
 # OH-MY-POSH CONFIGURATION & THEME
@@ -187,6 +187,30 @@ zshSet() {
   echo "***************************************************"
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 } # Check if ZSH is installed, set ZSH as the default shell, and then install Oh My ZSH.
+
+zadd() {
+  if [ -z "$1" ]; then
+    echo "***************************************************"
+    echo "Please provide the text you want to add! 📝"
+    echo "Usage: zadd 'export PATH=...'"
+    echo "***************************************************"
+    return 1
+  fi
+
+  echo "***************************************************"
+  echo "Appending to .zshrc... ✍️"
+  echo "***************************************************"
+  echo "$1" >> "${HOME}/.zshrc"
+
+  echo "***************************************************"
+  echo "Reloading configuration... 🔄"
+  echo "***************************************************"
+  source "${HOME}/.zshrc"
+
+  echo "***************************************************"
+  echo "Done! Entry added and config reloaded. ✅"
+  echo "***************************************************"
+} # Appends a line to .zshrc and reloads the config.
 
 # SSH KEYS
 # ----------------------------------------------
@@ -457,14 +481,50 @@ alias pacup="sudo pacman -Sy" # Update package database.
 alias sysu="sudo pacman -Syu" # Full system upgrade.
 alias pacls="pacman -Q $1" # List installed packages.
 
+# PYTHON/PYENV
+# ----------------------------------------------
+alias pyei="brew install pyenv" # Install pyenv using Homebrew.
+alias pyi="pyenv install $1" # Install a specific Python version using pyenv. Append with version number.
+alias pyu="pyenv uninstall $1" # Uninstall a specific Python version using pyenv. Append with version number.
+alias pyv="pyenv versions" # List all installed Python versions.
+alias pygl="pyenv global $1" # Set the global Python version. Append with version number.
+alias pyl="pyenv local $1" # Set the local Python version for the current directory. Append with version number.
+alias pysh="pyenv shell $1" # Set the shell-specific Python version. Append with version number.
+
+# PIP/PIPENV
+# ----------------------------------------------
+pipi() {
+    pip install "$@" --user
+} # Install a Python package using pip and the --user flag to avoid permission issues. The $@ allows for multiple package names to be passed.
+pipu() {
+  pip uninstall "$@" --user
+} # Uninstall a Python package using pip
+alias pipug="pip install --upgrade pip" # Upgrade pip to the latest version
+alias pipl="pip list" # List all installed Python packages using pip
+pipei() {
+  pipenv install "$@"
+} # Install a package using pipenv. The $@ allows for multiple package names to be passed. Make sure you run these commands within a local project and not globally.
+alias pipea="pipenv shell" # Activate the pipenv shell for the current project.
+alias piped="exit" # Deactivate the pipenv shell.
+
 # POSTGRESQL
 # ----------------------------------------------
-alias pgi="sudo apt install postgresql postgresql-contrib" # Install PostgreSQL and its contrib package
-alias pgst="sudo service postgresql status" # Check the status of the PostgreSQL service
-alias pgs="sudo service postgresql start" # Start the PostgreSQL service
-alias pgsp="sudo service postgresql stop" # Stop the PostgreSQL service
-alias pgpass="sudo passwd $1" # Change the password for a PostgreSQL user. Append with username.
-alias pgconn="sudo -u $1 psql" # Connect to PostgreSQL as the postgres user
+pgi() { brew install postgresql@$1; } # Install a specific PostgreSQL version using Homebrew. Append with version number.
+pgl() { brew link postgresql@$1; } # Link a specific PostgreSQL version. Append with version number.
+pgs() { brew services start postgresql@$1; } # Start PostgreSQL service for a specific version. Append with version number.
+pgst() { brew services stop postgresql@$1; } # Stop PostgreSQL service for a specific version. Append with version number.
+alias pgdb="createdb" # Create a new PostgreSQL database. Append with database name.
+
+# Or, if you don't want/need a background service you can just run:
+# LC_ALL="en_US.UTF-8" /opt/homebrew/opt/postgresql@16/bin/postgres -D /opt/homebrew/var/postgresql@16
+
+# If you need to have postgresql@16 first in your PATH run this command:
+# echo 'export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"' >> /Users/gingaranga/.zshrc
+# For compiling from source, you may need to set these flags:
+# export LDFLAGS="-L/opt/homebrew/opt/postgresql@16/lib"
+# export CPPFLAGS="-I/opt/homebrew/opt/postgresql@16/include"
+# For pkgconf to find postgresql@16 you may need to set:
+# export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@16/lib/pkgconfig"
 
 # REGEX DEFINITION
 # ----------------------------------------------
