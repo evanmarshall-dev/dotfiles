@@ -13,12 +13,15 @@ export PATH="/home/gingaranga/.local/bin:$PATH"
 # eval "$(pyenv init - zsh)"
 
 # ----------------------------------------------
-# OH-MY-ZSH CONFIGURATION & THEME
+# OH-MY-POSH CONFIGURATION & THEME
 # - Favourite themes: chips.omp.json, cloud-native-azure.omp.json, froczh.omp.json, iterm2.omp.json, jandedobbeleer.omp.json, jblab_2021.omp.json, kushal.omp.json, mojada.omp.json, montys.omp.json, quick-term.omp.json, sonicboom_light.omp.json, wholespace.omp.json
 # ----------------------------------------------
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   # eval "$(oh-my-posh init zsh)"
-  eval "$(oh-my-posh init zsh --config ~/.cache/oh-my-posh/themes/cloud-native-azure.omp.json)"
+  # eval "$(oh-my-posh init zsh --config ~/jandedobbeleer.omp.json)"
+  eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/cloud-native-azure.omp.json)"
+  # FOR WINDOWS WSL
+  # eval "$(oh-my-posh init zsh --config ~/.cache/oh-my-posh/themes/cloud-native-azure.omp.json)"
 fi
 
 # ----------------------------------------------
@@ -47,25 +50,30 @@ source $ZSH/oh-my-zsh.sh
 
 # MACOSX
 # ----------------------------------------------
-hiddenOn() {
-  echo "Show hidden folder on your Mac. 👓👓"
-  defaults write com.apple.Finder AppleShowAllFiles true
+macInit() {
+  echo "Show Library folder on your Mac. 📂"
+  chflags nohidden ~/Library
   echo "***************************************************"
-  echo "Refresh finder window. 🪟"
+  echo "Do not open previous previewed files (e.g. PDFs) when opening a new one. 📄"
+  defaults write com.apple.Preview ApplePersistenceIgnoreState YES
   echo "***************************************************"
-  killall Finder ;
+  echo "Save screenshots as JPG instead of PNG to save space. 📸"
+  defaults write com.apple.screencapture type jpg
+  echo "***************************************************"
+  echo "Show hidden files in Finder. 👻"
+  defaults write com.apple.finder AppleShowAllFiles YES
+  echo "***************************************************"
+  echo "Show status bar in Finder window. 📊"
+  defaults write com.apple.finder ShowPathbar -bool true
+  echo "***************************************************"
+  echo "Show path bar in Finder window. 🛣️"
+  defaults write com.apple.finder ShowStatusBar -bool true
+  echo "***************************************************"
+  echo "Restarting Finder to apply changes... 🔄"
+  killall Finder;
+  echo "***************************************************"
   echo "DONE! 😃"
-} # Show hidden folders in MacOSX.
-
-hiddenOff() {
-  echo "Hide hidden folder on your Mac. 👓"
-  defaults write com.apple.Finder AppleShowAllFiles true
-  echo "***************************************************"
-  echo "Refresh finder window. 🪟"
-  echo "***************************************************"
-  killall Finder ;
-  echo "DONE! 😃"
-} # Hide hidden folders in MacOSX.
+} # Show hidden folders in MacOSX as well as other configs
 
 # CLI/GENERAL
 # ----------------------------------------------
