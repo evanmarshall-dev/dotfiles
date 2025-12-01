@@ -2,5 +2,9 @@
   {
     "key": "alt+b",
     "command": "multiCommand.makeRoom"
+  },
+  {
+    "key": "ctrl+b",
+    "command": "multiCommand.closeAgent"
   }
 ]
