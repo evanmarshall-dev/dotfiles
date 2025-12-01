@@ -1,0 +1,113 @@
+{
+  // EDITOR
+  "editor.minimap.enabled": false,
+  "editor.fontSize": 18,
+  "editor.fontFamily": "RobotoMono Nerd Font, FiraMono Nerd Font",
+  "editor.fontLigatures": true,
+  "editor.wordWrap": "on",
+  "editor.scrollBeyondLastLine": false,
+  "editor.scrollBeyondLastColumn": 0,
+  "editor.guides.bracketPairs": true,
+  "editor.stickyScroll.enabled": true,
+  "editor.tabSize": 4,
+  // LINTING & FORMATTING
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": [
+      "source.formatDocument",
+      "source.fixAll.eslint"
+    ]
+  },
+  "[typescript]": {
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": [
+      "source.formatDocument",
+      "source.fixAll.eslint"
+    ]
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": [
+      "source.formatDocument",
+      "source.fixAll.eslint"
+    ]
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": [
+      "source.formatDocument",
+      "source.fixAll.eslint"
+    ]
+  },
+  // WORKBENCH
+  "workbench.colorTheme": "Dracula Theme",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.productIconTheme": "material-product-icons",
+  "workbench.sideBar.location": "right",
+  "workbench.startupEditor": "none",
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.restoreViewState": true,
+  "workbench.tree.enableStickyScroll": true,
+  "workbench.tree.indent": 4,
+  // SIDEBAR & ACTIVITY BAR TOGGLE
+  "multiCommand.commands": [
+    {
+      "command": "multiCommand.makeRoom",
+      "sequence": [
+        "workbench.action.toggleSidebarVisibility",
+        "workbench.action.toggleActivityBarVisibility"
+      ]
+    }
+  ],
+  // TERMINAL
+  "terminal.integrated.fontFamily": "RobotoMono Nerd Font, FiraMono Nerd Font",
+  "terminal.integrated.fontSize": 18,
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.defaultProfile.windows": "zsh",
+  "terminal.integrated.persistentSessionScrollback": 100,
+  "terminal.integrated.stickyScroll.enabled": true,
+  "terminal.integrated.scrollback": 1000,
+  // FILES
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    "**/.git": false,
+    "**/.next": false,
+    "**/dist": false,
+    "**/node_modules": false
+  },
+  // GITIGNORE CONFIG
+  "search.useIgnoreFiles": true,
+  "search.useGlobalIgnoreFiles": true,
+  // FILE EXPLORER
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  "explorer.compactFolders": false,
+  // JAVASCRIPT/TYPESCRIPT
+  "javascript.updateImportsOnFileMove.enabled": "never",
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+  "typescript.updateImportsOnFileMove.enabled": "never",
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+  "typescript.format.indentSwitchCase": false,
+  // COPILOT
+  "chat.agent.enabled": true,
+  "chat.commandCenter.enabled": true,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+  // PACKAGE MANAGER
+  "npm.packageManager": "pnpm",
+  "chat.instructionsFilesLocations": {
+    ".github/instructions": true,
+    "/var/folders/7h/jgpl0scn5y14wyr8y89z3mhh0000gn/T/postman-collections-post-response.instructions.md": true,
+    "/var/folders/7h/jgpl0scn5y14wyr8y89z3mhh0000gn/T/postman-collections-pre-request.instructions.md": true,
+    "/var/folders/7h/jgpl0scn5y14wyr8y89z3mhh0000gn/T/postman-folder-post-response.instructions.md": true,
+    "/var/folders/7h/jgpl0scn5y14wyr8y89z3mhh0000gn/T/postman-folder-pre-request.instructions.md": true,
+    "/var/folders/7h/jgpl0scn5y14wyr8y89z3mhh0000gn/T/postman-http-request-post-response.instructions.md": true,
+    "/var/folders/7h/jgpl0scn5y14wyr8y89z3mhh0000gn/T/postman-http-request-pre-request.instructions.md": true
+  },
+  "postman.mcp.notifications.postmanMCP": false
+}

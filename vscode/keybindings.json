@@ -1,0 +1,6 @@
+[
+  {
+    "key": "alt+b",
+    "command": "multiCommand.makeRoom"
+  }
+]
