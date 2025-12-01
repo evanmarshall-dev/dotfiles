@@ -5,6 +5,7 @@
 # SETTING EXECUTABLE PATHS
 # ----------------------------------------------
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
 
 # LOAD PYENV
 # ----------------------------------------------
