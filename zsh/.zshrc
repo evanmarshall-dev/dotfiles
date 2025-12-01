@@ -112,8 +112,28 @@ make() {
 # HOMEBREW
 # ----------------------------------------------
 alias bl="echo -e 'Let us see what brews you have in your collection. 📚\n\n' && brew list" # Lists all Homebrew packages.
-alias bi="echo -e 'Let us install a brew package. \n\n' && brew install $1" # Installs a Homebrew package. Just append the package name after the alias.
-alias bic="echo -e 'Let us install a brew cask. \n\n' && brew install $1 --cask" # Installs a Homebrew cask. Just append the cask name after the alias.
+alias blc="echo -e 'Let us see what casks you have in your collection. 📚\n\n' && brew list --cask" # Lists all Homebrew casks.
+alias bar="echo -e 'Time to clean up those old brews! 🍺🧹\n\n' && brew autoremove" # Removes any outdated Homebrew packages and dependencies.
+
+bi() {
+  echo -e 'Let us install a brew package. \n\n'
+  brew install "$@"
+} # Installs a Homebrew package.
+
+bui() {
+  echo -e 'Let us uninstall a brew package. \n\n'
+  brew uninstall "$@"
+} # Uninstalls a Homebrew package.
+
+bic() {
+  echo -e 'Let us install a brew cask. \n\n'
+  brew install "$@" --cask
+} # Installs a Homebrew cask.
+
+buic() {
+  echo -e 'Let us uninstall a brew cask. \n\n'
+  brew uninstall "$@" --cask
+} # Uninstalls a Homebrew cask.
 
 binf() {
   echo "***************************************************"
