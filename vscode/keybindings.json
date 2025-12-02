@@ -4,7 +4,7 @@
     "command": "multiCommand.makeRoom"
   },
   {
-    "key": "shift+b",
+    "key": "alt+shift+b",
     "command": "multiCommand.closeAgent"
   }
 ]
