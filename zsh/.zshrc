@@ -565,6 +565,11 @@ pgs() { brew services start postgresql@$1; } # Start PostgreSQL service for a sp
 pgst() { brew services stop postgresql@$1; } # Stop PostgreSQL service for a specific version. Append with version number.
 alias pgdb="createdb" # Create a new PostgreSQL database. Append with database name.
 
+alias psqs="sudo service postgresql start" # Start PostgreSQL service on Linux.
+alias psqq="sudo service postgresql stop" # Stop PostgreSQL service on Linux.
+alias psqr="sudo service postgresql restart" # Restart PostgreSQL service on Linux.
+alias psqst="sudo service postgresql status" # Check PostgreSQL service status on Linux.
+
 # Or, if you don't want/need a background service you can just run:
 # LC_ALL="en_US.UTF-8" /opt/homebrew/opt/postgresql@16/bin/postgres -D /opt/homebrew/var/postgresql@16
 
