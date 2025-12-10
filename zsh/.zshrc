@@ -558,6 +558,26 @@ alias pipea="pipenv shell" # Activate the pipenv shell for the current project.
 alias piped="exit" # Deactivate the pipenv shell.
 
 # POSTGRESQL
+# - NOTES:
+#   * Install Postgresql on WSL (Ubuntu):
+#     - Run alias `uup` to make sure your packages are up to date.
+#     - `sudo apt-get install postgresql postgresql-contrib`
+#     - `psql --version`
+#   * Main 3 commands to manage Postgresql service on Linux:
+#     - `sudo service postgresql start` to start the service.
+#     - `sudo service postgresql stop` to stop the service.
+#     - `sudo service postgresql status` to check the status of the service.
+#   * Configure Postgresql:
+#     - `sudo passwd postgres` to set password for postgres user.
+#     - `sudo service postgresql stop` to stop the service before making changes, close terminal windows, then `sudo service postgresql start` to restart it.
+#     - `sudo -u postgres createuser $USER` to create a new user with your system WSL username.
+#     - `sudo -u postgres createdb $USER` to create a new database with your system WSL username.
+#     - `sudo su - postgres` to switch to the postgres user.
+#     - `psql` to access the Postgresql prompt.
+#     - `\q` to quit the Postgresql prompt.
+#   * Assigning roles to WSL user:
+#     - `ALTER ROLE <user> WITH CREATEDB;` to give the user permission to create databases (eg. change <user> to your WSL username).
+#     - `ALTER ROLE <user> WITH SUPERUSER;` to give the user superuser permissions (eg. change <user> to your WSL username).
 # ----------------------------------------------
 pgi() { brew install postgresql@$1; } # Install a specific PostgreSQL version using Homebrew. Append with version number.
 pgl() { brew link postgresql@$1; } # Link a specific PostgreSQL version. Append with version number.
