@@ -570,6 +570,18 @@ alias psqq="sudo service postgresql stop" # Stop PostgreSQL service on Linux.
 alias psqr="sudo service postgresql restart" # Restart PostgreSQL service on Linux.
 alias psqst="sudo service postgresql status" # Check PostgreSQL service status on Linux.
 
+psqp() {
+  local user=${1:-postgres}
+  echo "Changing password for user: $user 🔐"
+  sudo passwd "$user"
+} # Change the password for a user (default: postgres).
+
+psqsu() {
+  local user=${1:-postgres}
+  echo "Accessing PostgreSQL prompt as user: $user 🐘"
+  sudo -u "$user" psql
+} # Access the PostgreSQL prompt as a specific user (default: postgres).
+
 # Or, if you don't want/need a background service you can just run:
 # LC_ALL="en_US.UTF-8" /opt/homebrew/opt/postgresql@16/bin/postgres -D /opt/homebrew/var/postgresql@16
 
