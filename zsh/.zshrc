@@ -8,9 +8,9 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # LOAD PYENV
 # ----------------------------------------------
-# export PYENV_ROOT="$HOME/.pyenv"
-# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init - zsh)"
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
 
 # ----------------------------------------------
 # OH-MY-POSH CONFIGURATION & THEME
@@ -19,9 +19,9 @@ export PATH="$HOME/.local/bin:$PATH"
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   # eval "$(oh-my-posh init zsh)"
   # eval "$(oh-my-posh init zsh --config ~/jandedobbeleer.omp.json)"
-  # eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/cloud-native-azure.omp.json)"
+  eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/cloud-native-azure.omp.json)"
   # FOR WINDOWS WSL
-  eval "$(oh-my-posh init zsh --config ~/.cache/oh-my-posh/themes/cloud-native-azure.omp.json)"
+  # eval "$(oh-my-posh init zsh --config ~/.cache/oh-my-posh/themes/cloud-native-azure.omp.json)"
 fi
 
 # ----------------------------------------------
@@ -260,14 +260,14 @@ alias gpu="echo -e 'What are they doing up there? Pull it down! 😶‍🌫️\n
 alias gr="echo -e 'Let us see those remote repositories! 🌍\n\n' && git remote -v" # View remote repositories.
 alias gb="echo -e 'Branches are like trees, let us see them all! 🌲🌲\n\n' && git branch -a" # View all branches (local and remote).
 
-gp() {
+gPush() {
   local remote=${1:-origin}
   local branch=${2:-main}
   echo -e "Alright, we done. Push it up to $remote/$branch! 🫷⬆️\n\n"
   git push "$remote" "$branch"
 } # Pushes local changes to remote (default: origin) and branch (default: main).
 
-gc() {
+gClone() {
   local repo_name=$1
   local username=${2:-evanmarshall-dev}
   local ssh_alias=${3:-dgit}
@@ -282,12 +282,12 @@ gc() {
   git clone "git@$ssh_alias:$username/$repo_name.git"
 } # Clones a remote repo using SSH alias. Usage: gc <repo-name> [username] [ssh-alias]
 
-gcb() {
+gNewBranch() {
     echo -e 'A new branch is sprouting on your Git tree 🌳\n\n'
     git checkout -b "$1"
 } # Switch to and create branch. Append branch name to the end of this function.
 
-gsb() {
+gEnterBranch() {
     echo -e 'Let us climb to that branch! 🌴\n\n'
     git checkout "$1"
 }
@@ -296,7 +296,7 @@ gitUnstage() {
   git reset HEAD "$1" && git rm --cached -r "$1"
 } # Pass any file or directory as an argument to remove cached staging changes for said file/dir being added to .gitignore (i.e. gitunstage path/to/file.txt or gitunstage out/).
 
-gitCom() {
+gCommit() {
   echo "You have done some great work! Now let us send that up to the repo for safe keeping. ✅✅"
   echo "***************************************************"
   echo "First, let us check the status of the local work vs remote repo. 🌱🌱"
@@ -337,7 +337,7 @@ gitCom() {
   git log --graph --oneline --decorate
 } # Adds all changed files to staging and generates a commit with message. Append the git commit message to the end of this function alias within quotes. If all checks passed, it then pushes to remote repo.
 
-gitConnectNew() {
+gNew() {
   echo "Let's connect your local project to a new remote GitHub repo! ��"
   echo "***************************************************"
 
