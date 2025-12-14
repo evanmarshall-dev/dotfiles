@@ -1,0 +1,260 @@
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Halifax
+    volumes:
+      - /docker/sonarr:/config
+      - /data:/data
+    ports:
+      - 8988:8989
+    restart: unless-stopped
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Halifax
+    volumes:
+      - /docker/radarr:/config
+      - /data:/data
+    ports:
+      - 7877:7878
+    restart: unless-stopped
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Halifax
+    volumes:
+      - /docker/prowlarr:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Halifax
+    volumes:
+      - /docker/sabnzbd:/config
+      - /data/usenet:/data/usenet
+    ports:
+      - 8088:8080
+    restart: unless-stopped
+
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Halifax
+      - VERSION=docker
+      # - PLEX_CLAIM= #optional
+    volumes:
+      - /docker/plex:/config
+      - /data/media:/data/media
+    restart: unless-stopped
+
+  overseerr:
+    image: lscr.io/linuxserver/overseerr:latest
+    container_name: overseerr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Halifax
+    volumes:
+      - /docker/overseerr:/config
+    ports:
+      - 5065:5055
+    restart: unless-stopped
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    ports:
+      - 13378:80
+    volumes:
+      - /data/media:/data/media
+      - /docker/audiobookshelf:/config
+      - /docker/audiobookshelf/metadata:/metadata
+    environment:
+      - TZ=America/Halifax
+
+  # readarr:
+  #   # image: linuxserver/readarr:0.4.19-nightly
+  #   image: ghcr.io/pennydreadful/bookshelf:hardcover
+  #   # image: ghcr.io/faustvii/readarr:latest
+  #   container_name: readarr
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=America/Halifax
+  #   volumes:
+  #     - /docker/readarr:/config
+  #     - /data:/data
+  #   ports:
+  #     - 8788:8787
+  #   restart: unless-stopped
+
+  # calibre-web-automated:
+  #   image: crocodilestick/calibre-web-automated:latest
+  #   container_name: calibre-web-automated
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=America/Halifax
+  #     - HARDCOVER_TOKEN=${HARDCOVER_TOKEN}
+  #     - NETWORK_SHARE_MODE=false
+  #     - CWA_PORT_OVERRIDE=8083
+  #   volumes:
+  #     - /docker/calibre-web-automated:/config
+  #     # - /data/usenet/incomplete:/cwa-book-ingest
+  #     - /data/media/ebooks:/cwa-book-ingest
+  #     # If you don't have an existing library, CWA will automatically create one at the bind provided here
+  #     - /data/media/calibre:/calibre-library
+  #     # If you use calibre plugins, you can bind your plugins folder here to have CWA attempt to add them to its workflow (WIP)
+  #     # If you are starting with a fresh install, you also need to copy customize.py.json to the Calibre config volume above, in /path/to/config/folder/.config/calibre/customize.py.json, see the note below for more info
+  #     - /docker/calibre-web-automated/plugins:/config/.config/calibre/plugins
+  #   ports:
+  #     - 8083:8083
+  #   # If you set CWA_PORT_OVERRIDE to a port below 1024, you may need to uncomment the following line:
+  #   # cap_add:
+  #   #   - NET_BIND_SERVICE
+  #   restart: unless-stopped
+
+  # calibre-web-automated-book-downloader:
+  #   image: ghcr.io/calibrain/calibre-web-automated-book-downloader:latest
+  #   container_name: calibre-web-automated-book-downloader
+  #   environment:
+  #     FLASK_PORT: 8084
+  #     LOG_LEVEL: info
+  #     BOOK_LANGUAGE: en
+  #     USE_BOOK_TITLE: true
+  #     TZ: America/Halifax
+  #     UID: 1000
+  #     GID: 100
+  #     MAX_CONCURRENT_DOWNLOADS: 3
+  #     DOWNLOAD_PROGRESS_UPDATE_INTERVAL: 5
+  #   ports:
+  #     - 8084:8084
+  #   restart: unless-stopped
+  #   volumes:
+  #     - /data/media/ebooks:/cwa-book-ingest
+
+  # calibre-web-automated-book-downloader-tor:
+  #   image: ghcr.io/calibrain/calibre-web-automated-book-downloader-tor:latest
+  #   environment:
+  #     FLASK_PORT: 8084
+  #     LOG_LEVEL: info
+  #     BOOK_LANGUAGE: en
+  #     USE_BOOK_TITLE: true
+  #     TZ: America/Halifax
+  #     USING_TOR: true
+  #     # CWA_DB_PATH: /auth/app.db  # Uncomment to enable authentication
+  #     # SESSION_COOKIE_SECURE: 'true'  # Set to 'true' if accessing ONLY via HTTPS
+  #     # DEBUG: 'true'  # Enable debug mode (debug button, verbose logging)
+  #   cap_add:
+  #     - NET_ADMIN
+  #     - NET_RAW
+  #   ports:
+  #     - 8084:8084
+  #   restart: unless-stopped
+  #   volumes:
+  #     # This is where the books will be downloaded to, usually it would be
+  #     # the same as whatever you gave in "calibre-web-automated"
+  #     - /data/media/ebooks:/cwa-book-ingest
+  #     # This is the location of CWA's app.db, which contains authentication
+  #     # details. Uncomment to enable authentication (also uncomment CWA_DB_PATH above)
+  #     #- /cwa/config/path/app.db:/auth/app.db:ro
+
+  # qbittorrent:
+  #   image: lscr.io/linuxserver/qbittorrent:latest
+  #   container_name: qbittorrent
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=America/Halifax
+  #     - WEBUI_PORT=8880
+  #     - TORRENTING_PORT=6881
+  #   volumes:
+  #     - /docker/qbittorrent:/config
+  #     - /data/torrents:/data/torrents
+  #   ports:
+  #     - 8880:8880
+  #     - 6881:6881
+  #     - 6881:6881/udp
+  #   restart: unless-stopped
+
+  # lazylibrarian:
+  #   image: lscr.io/linuxserver/lazylibrarian:latest
+  #   container_name: lazylibrarian
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=America/Halifax
+  #     # - DOCKER_MODS=linuxserver/mods:universal-calibre|linuxserver/mods:lazylibrarian-ffmpeg #optional
+  #   volumes:
+  #     - /docker/lazylibrarian:/config
+  #     - /data:/data
+  #   ports:
+  #     - 5299:5299
+  #   restart: unless-stopped
+
+  # listenarr:
+  #   # image: therobbiedavis/listenarr:latest
+  #   image: ghcr.io/therobbiedavis/listenarr:canary
+  #   container_name: listenarr
+  #   ports:
+  #     - 5000:5000
+  #   # environment:
+  #   #   - LISTENARR_PUBLIC_URL=https://your-domain.com //OPTIONAL: Used for the Discord Bot
+  #   volumes:
+  #     - /docker/listenarr:/config
+  #     - /data:/data
+  #   restart: unless-stopped
+
+  # mc:
+  #   image: itzg/minecraft-server:latest
+  #   pull_policy: daily
+  #   tty: true
+  #   stdin_open: true
+  #   ports:
+  #     - 25566:25565
+  #   environment:
+  #     EULA: "TRUE"
+  #   volumes:
+  #     - /docker/minecraft:/data
+
+  # n8n:
+  #   image: n8nio/n8n
+  #   ports:
+  #     - 5677:5678
+  #   environment:
+  #     - GENERIC_TIMEZONE=America/Halifax
+  #     - TZ=America/Halifax
+  #     - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+  #     - N8N_RUNNERS_ENABLED=true
+  #     - N8N_BASIC_AUTH_ACTIVE=true
+  #     - N8N_SECURE_COOKIE=false
+  #   volumes:
+  #     - /docker/n8n:/home/node/.n8n
