@@ -259,6 +259,9 @@ alias gs="echo -e 'All right! What is going on here? 😕\n\n' && git status" # 
 alias gpu="echo -e 'What are they doing up there? Pull it down! 😶‍🌫️\n\n' && git pull" # Pulls changes from remote branch to local.
 alias gr="echo -e 'Let us see those remote repositories! 🌍\n\n' && git remote -v" # View remote repositories.
 alias gb="echo -e 'Branches are like trees, let us see them all! 🌲🌲\n\n' && git branch -a" # View all branches (local and remote).
+# git remote add upstream git@dgit:evanmarshall-dev/$1.git # Adds upstream remote repo. Append with repo name. Usually the czar repo.
+# git fetch upstream # Fetches any new changes from upstream remote repo.
+# git merge upstream/main # Merges any new changes from upstream remote repo to local main branch.
 
 gPush() {
   local remote=${1:-origin}
