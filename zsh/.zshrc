@@ -831,6 +831,20 @@ alias pygl="pyenv global $1" # Set the global Python version. Append with versio
 alias pyl="pyenv local $1" # Set the local Python version for the current directory. Append with version number.
 alias pysh="pyenv shell $1" # Set the shell-specific Python version. Append with version number.
 
+# DJANGO
+# ----------------------------------------------
+djStart() {
+  if [ -z "$1" ]; then
+    echo "Error: Project name is required."
+    echo "Usage: djStart <project-name>"
+    return 1
+  fi
+  django-admin startproject "$1" .
+} # Create a new Django project. Append with project name.
+
+alias dji="pipenv install django" # Install Django using pipenv.
+alias djs="djStart" # Create a new Django project in the current directory.
+
 # PIP/PIPENV
 # ----------------------------------------------
 pipi() {
@@ -844,10 +858,11 @@ alias pipl="pip list" # List all installed Python packages using pip
 pipei() {
   pipenv install "$@"
 } # Install a package using pipenv. The $@ allows for multiple package names to be passed. Make sure you run these commands within a local project and not globally.
-alias pipea="pipenv shell" # Activate the pipenv shell for the current project.
-alias piped="exit" # Deactivate the pipenv shell.
+alias pish="pipenv shell" # Activate the pipenv shell for the current project.
+alias pipe="exit" # Deactivate the pipenv shell.
 
 # POSTGRESQL
+# ----------------------------------------------
 # - NOTES:
 #   * Install Postgresql on WSL (Ubuntu):
 #     - Run alias `uup` to make sure your packages are up to date.
