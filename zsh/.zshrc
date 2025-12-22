@@ -842,8 +842,20 @@ djStart() {
   django-admin startproject "$1" .
 } # Create a new Django project. Append with project name.
 
+djCreateApp() {
+  if [ -z "$1" ]; then
+    echo "Error: App name is required."
+    echo "Usage: djCreateApp <app-name>"
+    return 1
+  fi
+  python3 manage.py startapp "$1"
+} # Create a new Django app within the current project. Append with app name.
+
 alias dji="pipenv install django" # Install Django using pipenv.
 alias djs="djStart" # Create a new Django project in the current directory.
+alias djca="djCreateApp" # Create a new Django app within the current project.
+alias djrun="python3 manage.py runserver" # Run the Django development server.
+alias djm="python3 manage.py migrate" # Apply database migrations.
 
 # PIP/PIPENV
 # ----------------------------------------------
