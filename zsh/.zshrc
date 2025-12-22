@@ -930,6 +930,15 @@ psqsu() {
 # For pkgconf to find postgresql@16 you may need to set:
 # export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@16/lib/pkgconfig"
 
+# TANSTACK
+# ----------------------------------------------
+tanCreate() {
+  local project_name=${1:-""}
+  pnpm create @tanstack/start@latest "$project_name"
+} # Create a new TanStack app. Optionally append with project name, defaults to current directory.
+
+alias tc="tanCreate" # Create a new TanStack app. Append with project name.
+
 # REGEX DEFINITION
 # ----------------------------------------------
 # EX: <a[\s\n]+class="ed-type--link store-phone"[\s\n]+href="tel:[^"]*"[\s\n]*>[^<]*<\/a[\s\n]*>
