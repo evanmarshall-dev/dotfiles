@@ -1,18 +1,4 @@
 # ----------------------------------------------
-# PATH VARIABLES
-# ----------------------------------------------
-
-# SETTING EXECUTABLE PATHS
-# ----------------------------------------------
-export PATH="$HOME/.local/bin:$PATH"
-
-# LOAD PYENV
-# ----------------------------------------------
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - zsh)"
-
-# ----------------------------------------------
 # OH-MY-POSH CONFIGURATION & THEME
 # - Favourite themes: chips.omp.json, cloud-native-azure.omp.json, froczh.omp.json, iterm2.omp.json, jandedobbeleer.omp.json, jblab_2021.omp.json, kushal.omp.json, mojada.omp.json, montys.omp.json, quick-term.omp.json, sonicboom_light.omp.json, wholespace.omp.json
 # ----------------------------------------------
@@ -821,18 +807,25 @@ alias pacup="sudo pacman -Sy" # Update package database.
 alias sysu="sudo pacman -Syu" # Full system upgrade.
 alias pacls="pacman -Q $1" # List installed packages.
 
-# PYTHON/PYENV
+# PYTHON & POSTGRESQL & PIPENV & DJANGO (on MacOS)
 # ----------------------------------------------
-alias pyei="brew install pyenv" # Install pyenv using Homebrew.
-alias pyi="pyenv install $1" # Install a specific Python version using pyenv. Append with version number.
-alias pyu="pyenv uninstall $1" # Uninstall a specific Python version using pyenv. Append with version number.
-alias pyv="pyenv versions" # List all installed Python versions.
-alias pygl="pyenv global $1" # Set the global Python version. Append with version number.
-alias pyl="pyenv local $1" # Set the local Python version for the current directory. Append with version number.
-alias pysh="pyenv shell $1" # Set the shell-specific Python version. Append with version number.
-
-# DJANGO
-# ----------------------------------------------
+alias pyi="brew install python@3.11" # Install Python 3.11 using Homebrew.
+alias pyt="python3 --version" # Test python install.
+alias pyw="which python3" # Locate the python3 executable.
+pgi() { brew install postgresql@$1; } # Install a specific PostgreSQL version using Homebrew. Append with version number.
+pgl() { brew link postgresql@$1; } # Link a specific PostgreSQL version. Append with version number.
+pgs() { brew services start postgresql@$1; } # Start PostgreSQL service for a specific version. Append with version number.
+alias pgdb="createdb $1" # Create a new PostgreSQL database. Append with database name.
+pipi() {
+    pip install "$@" --user
+} # Install a Python package using pip and the --user flag to avoid permission issues. The $@ allows for multiple package names to be passed.
+alias piev="pipenv --version" # Check pipenv version to verify installation.
+# Now to create a virtual environment within the project directory, navigate to the project folder and run (make sure to append with django):
+piei() {
+  pipenv install "$@"
+} # Install a package using pipenv. The $@ allows for multiple package names to be passed. Make sure you run these commands within a local project and not globally.
+alias pies="pipenv shell" # Activate the pipenv shell for the current project.
+alias djv="django-admin --version" # Check Django version to verify installation.
 djStart() {
   if [ -z "$1" ]; then
     echo "Error: Project name is required."
@@ -841,7 +834,7 @@ djStart() {
   fi
   django-admin startproject "$1" .
 } # Create a new Django project. Append with project name.
-
+alias djs="djStart" # Create a new Django project in the current directory. Append with project name.
 djCreateApp() {
   if [ -z "$1" ]; then
     echo "Error: App name is required."
@@ -850,30 +843,20 @@ djCreateApp() {
   fi
   python3 manage.py startapp "$1"
 } # Create a new Django app within the current project. Append with app name.
-
-alias dji="pipenv install django" # Install Django using pipenv.
-alias djs="djStart" # Create a new Django project in the current directory.
-alias djca="djCreateApp" # Create a new Django app within the current project.
+alias djca="djCreateApp" # Create a new Django app within the current project. Append with app name.
 alias djrun="python3 manage.py runserver" # Run the Django development server.
 alias djm="python3 manage.py migrate" # Apply database migrations.
 
-# PIP/PIPENV
-# ----------------------------------------------
-pipi() {
-    pip install "$@" --user
-} # Install a Python package using pip and the --user flag to avoid permission issues. The $@ allows for multiple package names to be passed.
+# EXTRAS
 pipu() {
   pip uninstall "$@" --user
-} # Uninstall a Python package using pip
+} # Uninstall a Python package using pip and the --user flag to avoid permission issues. The $@ allows for multiple package names to be passed.
 alias pipug="pip install --upgrade pip" # Upgrade pip to the latest version
 alias pipl="pip list" # List all installed Python packages using pip
-pipei() {
-  pipenv install "$@"
-} # Install a package using pipenv. The $@ allows for multiple package names to be passed. Make sure you run these commands within a local project and not globally.
-alias pish="pipenv shell" # Activate the pipenv shell for the current project.
-alias pipe="exit" # Deactivate the pipenv shell.
+pgst() { brew services stop postgresql@$1; } # Stop PostgreSQL service for a specific version. Append with version number.
+alias piee="exit" # Deactivate the pipenv shell.
 
-# POSTGRESQL
+# POSTGRESQL (on WSL/Linux)
 # ----------------------------------------------
 # - NOTES:
 #   * Install Postgresql on WSL (Ubuntu):
@@ -896,39 +879,20 @@ alias pipe="exit" # Deactivate the pipenv shell.
 #     - `ALTER ROLE <user> WITH CREATEDB;` to give the user permission to create databases (eg. change <user> to your WSL username).
 #     - `ALTER ROLE <user> WITH SUPERUSER;` to give the user superuser permissions (eg. change <user> to your WSL username).
 # ----------------------------------------------
-pgi() { brew install postgresql@$1; } # Install a specific PostgreSQL version using Homebrew. Append with version number.
-pgl() { brew link postgresql@$1; } # Link a specific PostgreSQL version. Append with version number.
-pgs() { brew services start postgresql@$1; } # Start PostgreSQL service for a specific version. Append with version number.
-pgst() { brew services stop postgresql@$1; } # Stop PostgreSQL service for a specific version. Append with version number.
-alias pgdb="createdb" # Create a new PostgreSQL database. Append with database name.
-
 alias psqs="sudo service postgresql start" # Start PostgreSQL service on Linux.
 alias psqq="sudo service postgresql stop" # Stop PostgreSQL service on Linux.
 alias psqr="sudo service postgresql restart" # Restart PostgreSQL service on Linux.
 alias psqst="sudo service postgresql status" # Check PostgreSQL service status on Linux.
-
 psqp() {
   local user=${1:-postgres}
   echo "Changing password for user: $user 🔐"
   sudo passwd "$user"
 } # Change the password for a user (default: postgres).
-
 psqsu() {
   local user=${1:-postgres}
   echo "Accessing PostgreSQL prompt as user: $user 🐘"
   sudo -u "$user" psql
 } # Access the PostgreSQL prompt as a specific user (default: postgres).
-
-# Or, if you don't want/need a background service you can just run:
-# LC_ALL="en_US.UTF-8" /opt/homebrew/opt/postgresql@16/bin/postgres -D /opt/homebrew/var/postgresql@16
-
-# If you need to have postgresql@16 first in your PATH run this command:
-# echo 'export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"' >> /Users/gingaranga/.zshrc
-# For compiling from source, you may need to set these flags:
-# export LDFLAGS="-L/opt/homebrew/opt/postgresql@16/lib"
-# export CPPFLAGS="-I/opt/homebrew/opt/postgresql@16/include"
-# For pkgconf to find postgresql@16 you may need to set:
-# export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@16/lib/pkgconfig"
 
 # TANSTACK
 # ----------------------------------------------
@@ -952,3 +916,10 @@ alias tc="tanCreate" # Create a new TanStack app. Append with project name.
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+
+# SETTING EXECUTABLE PATHS
+# ----------------------------------------------
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/opt/homebrew/opt/python@3.11/bin:$PATH"
+export PATH="/opt/homebrew/opt/python@3.11/libexec/bin:$PATH"
+export PATH="$HOME/Library/Python/3.11/bin:$PATH"
