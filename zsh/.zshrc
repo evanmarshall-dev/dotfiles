@@ -818,7 +818,7 @@ pgs() { brew services start postgresql@$1; } # Start PostgreSQL service for a sp
 alias pgdb="createdb $1" # Create a new PostgreSQL database. Append with database name.
 pipi() {
     pip install "$@" --user
-} # Install a Python package using pip and the --user flag to avoid permission issues. The $@ allows for multiple package names to be passed.
+} # Install a Python package using pip and the --user flag to avoid permission issues. The $@ allows for multiple package names to be passed. For this process we will be installing pipenv.
 alias piev="pipenv --version" # Check pipenv version to verify installation.
 # Now to create a virtual environment within the project directory, navigate to the project folder and run (make sure to append with django):
 piei() {
@@ -826,6 +826,91 @@ piei() {
 } # Install a package using pipenv. The $@ allows for multiple package names to be passed. Make sure you run these commands within a local project and not globally.
 alias pies="pipenv shell" # Activate the pipenv shell for the current project.
 alias djv="django-admin --version" # Check Django version to verify installation.
+
+# TODO: Potential fix for my setup on MacOS with zsh and pipenv:
+# Check if pipenv virtual environment exists, if not, print message.
+# ? pipenv --venv 2>&1 || echo "No pipenv venv found"
+# Verify that pipenv is using the correct python version within the virtual environment.
+# ? pipenv run which python3
+# Verify that the system python3 is being used.
+# ? which python3 && python3 --version
+# Verify pipenv installation.
+# ? which pipenv && pipenv --version
+# Verify the python path used by pipenv in the current project.
+# ? pipenv --py
+# Check if djlint is installed within the pipenv environment for the current project.
+# ? pipenv run pip list | grep -i djlint
+# Install djlint within the pipenv environment for the current project.
+# ? pipenv install --dev djlint
+# Ensure pipenv creates the virtual environment within the project directory.
+# ? echo 'export PIPENV_VENV_IN_PROJECT=1' >> ~/.zshrc && echo "Added PIPENV_VENV_IN_PROJECT to .zshrc"
+# Ensure pipenv creates the virtual environment within the project directory.
+# ? export PIPENV_VENV_IN_PROJECT=1 && pipenv --rm
+# Remove old virtualenv if exists. Replace path with your own.
+# ? rm -rf /Users/gingaranga/.local/share/virtualenvs/1.7_django-crud-app-cat-collector-hoL7XVxX && echo "Removed old virtualenv"
+# Ensure pipenv creates the virtual environment within the project directory.
+# ? export PIPENV_VENV_IN_PROJECT=1 && pipenv install --dev
+# Verify that the pipenv virtual environment python is being used.
+# ? ls -la .venv/bin/python && pipenv run python --version
+# Verify djlint installation within pipenv environment for the current project.
+# ? .venv/bin/python -m djlint --version
+
+# HERE IS WHAT WAS DONE ABOVE:
+# 1. ✅ Installed djlint in your pipenv as a dev dependency
+# 2. ✅ Configured pipenv to create .venv in your project directory (not in ~/.local/share)
+# 3. ✅ Recreated your pipenv environment with all dependencies (Django, psycopg2, djlint)
+# 4. ✅ Created workspace settings for VSCode to use the project's .venv
+# 5. ✅ Added .gitignore to exclude .venv from git
+
+# TO RUN PROJECT:
+# 1. cd /path/to/project
+# 2:
+vcheck() {
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+    echo "✓ Virtual environment is active: $VIRTUAL_ENV"
+    return 0
+  else
+    echo "✗ No virtual environment is currently active"
+    return 1
+  fi
+} # Check if a virtual environment is currently active.
+# 3:
+vexists() {
+  if [[ -d ".venv" ]]; then
+    echo "✓ .venv directory found in $(pwd)"
+    return 0
+  else
+    echo "✗ No .venv directory found in $(pwd)"
+    return 1
+  fi
+} # Check if .venv exists in the current directory.
+# 4:
+von() {
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+    echo "⚠️  Virtual environment already active: $VIRTUAL_ENV"
+    return 0
+  fi
+
+  if [[ -d ".venv" ]]; then
+    source .venv/bin/activate
+    echo "✓ Activated .venv in $(pwd)"
+  else
+    echo "✗ No .venv directory found in $(pwd)"
+    echo "Run 'pipenv install' to create one"
+    return 1
+  fi
+} # Activate .venv if it exists and is not already active.
+# 5:
+voff() {
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+    deactivate
+    echo "✓ Deactivated virtual environment"
+  else
+    echo "✗ No virtual environment is currently active"
+    return 1
+  fi
+} # Deactivate the current virtual environment.
+
 djStart() {
   if [ -z "$1" ]; then
     echo "Error: Project name is required."
@@ -844,8 +929,6 @@ djCreateApp() {
   python3 manage.py startapp "$1"
 } # Create a new Django app within the current project. Append with app name.
 alias djca="djCreateApp" # Create a new Django app within the current project. Append with app name.
-alias djrun="python3 manage.py runserver" # Run the Django development server.
-alias djm="python3 manage.py migrate" # Apply database migrations.
 
 # EXTRAS
 pipu() {
@@ -854,7 +937,36 @@ pipu() {
 alias pipug="pip install --upgrade pip" # Upgrade pip to the latest version
 alias pipl="pip list" # List all installed Python packages using pip
 pgst() { brew services stop postgresql@$1; } # Stop PostgreSQL service for a specific version. Append with version number.
+alias pier="pipenv --rm && pipenv install" # If bad interpreter error occurs, run this to remove the virtual environment and reinstall dependencies.
 alias piee="exit" # Deactivate the pipenv shell.
+alias djrun="python3 manage.py runserver" # Run the Django development server.
+alias djrunr="pipenv run python manage.py runserver" # Run the Django development server within pipenv environment. (Only use if errors using above alias).
+
+# TODO: Figure out why pipenv run is required for migrations but not for other django manage.py commands.
+
+alias djm="python3 manage.py migrate" # Apply database migrations.
+alias djmr="pipenv run python manage.py migrate" # Apply database migrations within pipenv environment (Only use if errors using above alias).
+alias djmm="python3 manage.py makemigrations" # Create new migrations based on the changes detected in models.
+alias djmmr="pipenv run python manage.py makemigrations" # Create new migrations within pipenv environment (Only use if errors using above alias).
+alias pysh="python3 manage.py shell" # Open the Python/Django shell.
+alias djcs="python3 manage.py createsuperuser" # Create a new superuser for the Django admin interface.
+alias djcsr="pipenv run python manage.py createsuperuser" # Create a new superuser within pipenv environment (Only use if errors using above alias).
+djcp() {
+  if [ -z "$1" ]; then
+    echo "Error: Username is required."
+    echo "Usage: djcp <username>"
+    return 1
+  fi
+  python3 manage.py changepassword "$1"
+} # Change password for a specific user. Append with username.
+djcpr() {
+  if [ -z "$1" ]; then
+    echo "Error: Username is required."
+    echo "Usage: djcpr <username>"
+    return 1
+  fi
+  pipenv run python manage.py changepassword "$1"
+} # Change password for a specific user within pipenv environment (Only use if errors using above alias). Append with username.
 
 # POSTGRESQL (on WSL/Linux)
 # ----------------------------------------------
@@ -923,3 +1035,4 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/homebrew/opt/python@3.11/bin:$PATH"
 export PATH="/opt/homebrew/opt/python@3.11/libexec/bin:$PATH"
 export PATH="$HOME/Library/Python/3.11/bin:$PATH"
+export PIPENV_VENV_IN_PROJECT=1
