@@ -5,9 +5,9 @@
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   # eval "$(oh-my-posh init zsh)"
   # eval "$(oh-my-posh init zsh --config ~/jandedobbeleer.omp.json)"
-  eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/cloud-native-azure.omp.json)"
+  # eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/cloud-native-azure.omp.json)"
   # FOR WINDOWS WSL
-  # eval "$(oh-my-posh init zsh --config ~/.cache/oh-my-posh/themes/cloud-native-azure.omp.json)"
+  eval "$(oh-my-posh init zsh --config ~/.cache/oh-my-posh/themes/cloud-native-azure.omp.json)"
 fi
 
 # ----------------------------------------------
@@ -940,17 +940,10 @@ pgst() { brew services stop postgresql@$1; } # Stop PostgreSQL service for a spe
 alias pier="pipenv --rm && pipenv install" # If bad interpreter error occurs, run this to remove the virtual environment and reinstall dependencies.
 alias piee="exit" # Deactivate the pipenv shell.
 alias djrun="python3 manage.py runserver" # Run the Django development server.
-alias djrunr="pipenv run python manage.py runserver" # Run the Django development server within pipenv environment. (Only use if errors using above alias).
-
-# TODO: Figure out why pipenv run is required for migrations but not for other django manage.py commands.
-
 alias djm="python3 manage.py migrate" # Apply database migrations.
-alias djmr="pipenv run python manage.py migrate" # Apply database migrations within pipenv environment (Only use if errors using above alias).
 alias djmm="python3 manage.py makemigrations" # Create new migrations based on the changes detected in models.
-alias djmmr="pipenv run python manage.py makemigrations" # Create new migrations within pipenv environment (Only use if errors using above alias).
 alias pysh="python3 manage.py shell" # Open the Python/Django shell.
 alias djcs="python3 manage.py createsuperuser" # Create a new superuser for the Django admin interface.
-alias djcsr="pipenv run python manage.py createsuperuser" # Create a new superuser within pipenv environment (Only use if errors using above alias).
 djcp() {
   if [ -z "$1" ]; then
     echo "Error: Username is required."
@@ -967,6 +960,19 @@ djcpr() {
   fi
   pipenv run python manage.py changepassword "$1"
 } # Change password for a specific user within pipenv environment (Only use if errors using above alias). Append with username.
+
+# PYTHON & POSTGRESQL & PIPENV & DJANGO (on WSL/Linux)
+# ----------------------------------------------
+alias prepy="sudo apt-get install software-properties-common && sudo add-apt-repository ppa:deadsnakes/ppa" # Prepare system to install Python 3.11.
+# THEN RUN: function uup to update packages.
+alias wpyi="sudo apt-get install python3.11" # Install Python 3.11 on WSL/Linux.
+alias wpyd="sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 10" # Set Python 3.11 as the default python3 version on WSL/Linux.
+alias wpii="sudo apt install python3-pip" # Install pip for Python 3 on WSL/Linux.
+# THEN RUN: function pipi to install pipenv.
+# VERIFY INSTALLS: pipenv --version && python3 --version && which python3
+# IF DJANGO NOT ALRTEADY INSTALLED: Follow the install instructions above in the MacOS section for pipenv and django installation within a project.
+# ONCE DJANGO IS INSTALLED: function pies to enter pipenv shell and function djv to verify django installation.
+# ONCE IN PIPENV SHELL: alias djrun to run the django development server.
 
 # POSTGRESQL (on WSL/Linux)
 # ----------------------------------------------
@@ -1031,7 +1037,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # SETTING EXECUTABLE PATHS
 # ----------------------------------------------
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH" # Add pipenv to PATH.
 export PATH="/opt/homebrew/opt/python@3.11/bin:$PATH"
 export PATH="/opt/homebrew/opt/python@3.11/libexec/bin:$PATH"
 export PATH="$HOME/Library/Python/3.11/bin:$PATH"
