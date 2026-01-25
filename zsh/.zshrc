@@ -5,9 +5,9 @@
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   # eval "$(oh-my-posh init zsh)"
   # eval "$(oh-my-posh init zsh --config ~/jandedobbeleer.omp.json)"
-  # eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/cloud-native-azure.omp.json)"
+  eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/cloud-native-azure.omp.json)"
   # FOR WINDOWS WSL
-  eval "$(oh-my-posh init zsh --config ~/.cache/oh-my-posh/themes/cloud-native-azure.omp.json)"
+  # eval "$(oh-my-posh init zsh --config ~/.cache/oh-my-posh/themes/cloud-native-azure.omp.json)"
 fi
 
 # ----------------------------------------------
@@ -1021,6 +1021,21 @@ tanCreate() {
 
 alias tc="tanCreate" # Create a new TanStack app. Append with project name.
 
+# AWS S3 STATIC SITE
+# ----------------------------------------------
+awsS3Deploy() {
+  if [ -z "$1" ]; then
+    echo "Usage: awsS3Deploy <bucket-name>"
+    return 1
+  fi
+  local bucket="$1"
+  echo "Building project with pnpm..."
+  pnpm build || { echo "pnpm build failed"; return 1; }
+  echo "Syncing to S3 bucket: $bucket"
+  aws s3 sync out/ "s3://$bucket/" --delete --cache-control "public, max-age=3600"
+} # Deploy static site to AWS S3 bucket. Append with bucket name.
+alias a3d="awsS3Deploy" # Deploy static site to AWS S3 bucket. Append with bucket name.
+
 # REGEX DEFINITION
 # ----------------------------------------------
 # EX: <a[\s\n]+class="ed-type--link store-phone"[\s\n]+href="tel:[^"]*"[\s\n]*>[^<]*<\/a[\s\n]*>
@@ -1041,4 +1056,4 @@ export PATH="$HOME/.local/bin:$PATH" # Add pipenv to PATH.
 export PATH="/opt/homebrew/opt/python@3.11/bin:$PATH"
 export PATH="/opt/homebrew/opt/python@3.11/libexec/bin:$PATH"
 export PATH="$HOME/Library/Python/3.11/bin:$PATH"
-export PIPENV_VENV_IN_PROJECT=1
+# export PIPENV_VENV_IN_PROJECT=1
