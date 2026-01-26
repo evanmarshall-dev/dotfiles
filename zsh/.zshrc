@@ -1032,9 +1032,28 @@ awsS3Deploy() {
   echo "Building project with pnpm..."
   pnpm build || { echo "pnpm build failed"; return 1; }
   echo "Syncing to S3 bucket: $bucket"
-  aws s3 sync out/ "s3://$bucket/" --delete --cache-control "public, max-age=3600"
+  aws s3 sync out/ "s3://$bucket/" \
+    --delete \
+    --cache-control "public, max-age=3600"
 } # Deploy static site to AWS S3 bucket. Append with bucket name.
 alias a3d="awsS3Deploy" # Deploy static site to AWS S3 bucket. Append with bucket name.
+
+# AWS S3 LAMBDA CONTACT
+# ----------------------------------------------
+lambdaContactDeploy() {
+  echo "Removing old function.zip..."
+  rm -f function.zip
+  echo "Creating new function.zip..."
+  zip -r function.zip index.js package.json package-lock.json node_modules/
+  echo "Updating Lambda function..."
+  aws lambda update-function-code \
+    --function-name contact-form-handler \
+    --zip-file fileb://function.zip
+  echo "Lambda updated! Wait 10 seconds..."
+  sleep 10
+  echo "Done! Test your contact form now."
+} # Deploy updated Lambda function for contact form handler.
+alias lcd="lambdaContactDeploy" # Deploy updated Lambda function for contact form handler.
 
 # REGEX DEFINITION
 # ----------------------------------------------
