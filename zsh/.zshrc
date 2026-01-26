@@ -1032,9 +1032,11 @@ awsS3Deploy() {
   echo "Building project with pnpm..."
   pnpm build || { echo "pnpm build failed"; return 1; }
   echo "Syncing to S3 bucket: $bucket"
-  aws s3 sync out/ "s3://$bucket/" \
+  aws s3 sync out/ s3://$bucket/ \ \
     --delete \
-    --cache-control "public, max-age=3600"
+    --cache-control "public, max-age=3600" \
+    --verbose
+  echo "S3 sync complete."
 } # Deploy static site to AWS S3 bucket. Append with bucket name.
 alias a3d="awsS3Deploy" # Deploy static site to AWS S3 bucket. Append with bucket name.
 
