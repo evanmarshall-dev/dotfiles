@@ -1,3 +1,11 @@
+# SETTING EXECUTABLE PATHS
+# ----------------------------------------------
+export PATH="$HOME/.local/bin:$PATH" # Add local/bin to PATH.
+# export PATH="/opt/homebrew/opt/python@3.11/bin:$PATH"
+# export PATH="/opt/homebrew/opt/python@3.11/libexec/bin:$PATH"
+# export PATH="$HOME/Library/Python/3.11/bin:$PATH"
+# export PIPENV_VENV_IN_PROJECT=1
+
 # ----------------------------------------------
 # OH-MY-POSH CONFIGURATION & THEME
 # - Favourite themes: chips.omp.json, cloud-native-azure.omp.json, froczh.omp.json, iterm2.omp.json, jandedobbeleer.omp.json, jblab_2021.omp.json, kushal.omp.json, mojada.omp.json, montys.omp.json, quick-term.omp.json, sonicboom_light.omp.json, wholespace.omp.json
@@ -5,9 +13,9 @@
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   # eval "$(oh-my-posh init zsh)"
   # eval "$(oh-my-posh init zsh --config ~/jandedobbeleer.omp.json)"
-  eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/cloud-native-azure.omp.json)"
-  # FOR WINDOWS WSL
-  # eval "$(oh-my-posh init zsh --config ~/.cache/oh-my-posh/themes/cloud-native-azure.omp.json)"
+  # eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/cloud-native-azure.omp.json)"
+  # FOR WINDOWS WSL AND ARCH LINUX
+  eval "$(oh-my-posh init zsh --config ~/.cache/oh-my-posh/themes/cloud-native-azure.omp.json)"
 fi
 
 # ----------------------------------------------
@@ -1070,11 +1078,3 @@ alias lcd="lambdaContactDeploy" # Deploy updated Lambda function for contact for
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-
-# SETTING EXECUTABLE PATHS
-# ----------------------------------------------
-export PATH="$HOME/.local/bin:$PATH" # Add pipenv to PATH.
-export PATH="/opt/homebrew/opt/python@3.11/bin:$PATH"
-export PATH="/opt/homebrew/opt/python@3.11/libexec/bin:$PATH"
-export PATH="$HOME/Library/Python/3.11/bin:$PATH"
-# export PIPENV_VENV_IN_PROJECT=1
