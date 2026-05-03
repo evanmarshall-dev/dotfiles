@@ -31,6 +31,8 @@ plugins=(
   node
   zsh-autosuggestions
   zsh-syntax-highlighting
+  docker
+  docker-compose
 )
 
 # ----------------------------------------------
@@ -981,6 +983,23 @@ alias wpii="sudo apt install python3-pip" # Install pip for Python 3 on WSL/Linu
 # IF DJANGO NOT ALRTEADY INSTALLED: Follow the install instructions above in the MacOS section for pipenv and django installation within a project.
 # ONCE DJANGO IS INSTALLED: function pies to enter pipenv shell and function djv to verify django installation.
 # ONCE IN PIPENV SHELL: alias djrun to run the django development server.
+
+# PYTHON AND PIP ON CACHYOS
+# ----------------------------------------------
+# For projects: Use virtual environments:
+# python -m venv venv
+# pip install <package>
+# For tools: Use pipx to install Python applications in isolated environments:
+# sudo pacman -S python-pipx
+# pipx ensurepath
+# pipx install <package_name>
+
+# DOCKER ON CACHYOS
+# ----------------------------------------------
+alias dps="docker ps"
+alias dc="docker-compose"
+alias dcu="docker-compose up -d"
+alias dcd="docker-compose down"
 
 # POSTGRESQL (on WSL/Linux)
 # ----------------------------------------------
